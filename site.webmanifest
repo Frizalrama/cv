@@ -1,0 +1,13 @@
+{
+  "name": "Mokhammad Afrizal Ramadhan — CV",
+  "short_name": "Afrizal CV",
+  "description": "CV & portfolio — Operations, Finance & Executive Support Professional",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FAF7EF",
+  "theme_color": "#123B26",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
