@@ -33,6 +33,7 @@
     s2title: "Career <em>track record</em>",
     s2lead: "Eight years of growing responsibility — from data operator to running two business lines.",
     now: "— Present",
+    e2date: "Aug 2018", e4date: "Dec 2016",
     e1role: "Finance &amp; Operations Manager — Franchise Division", e1pill: "Owner's trust",
     e1a: "End-to-end finance for 3 brands (Aicha, Momoyo, Mixue) — from sales revenue to raw-material spend.",
     e1b: "Payroll for 150+ employees: attendance monitoring through salary transfer.",
