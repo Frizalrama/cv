@@ -2,372 +2,567 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Generator Surat Lamaran — Afrizal</title>
-<style>
-  :root{
-    --ink:#14231F; --green:#0F5E52; --green-soft:#E3EEEB;
-    --gold:#A87A1B; --grey:#667571; --line:#D8E0DD; --paper:#F4F6F5; --card:#fff;
-  }
-  *{box-sizing:border-box}
-  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);margin:0;padding:24px;line-height:1.6}
-  .wrap{max-width:920px;margin:0 auto}
-  h1{font-size:1.4rem;margin-bottom:4px}
-  .sub{color:var(--grey);font-family:Arial,sans-serif;font-size:.85rem;margin-bottom:20px}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
-  @media(max-width:700px){.grid{grid-template-columns:1fr}}
-  label{font-family:Arial,sans-serif;font-size:.78rem;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:.03em;display:block;margin-bottom:4px}
-  input,select{width:100%;padding:9px 10px;border:1.5px solid var(--line);border-radius:6px;font-family:Arial,sans-serif;font-size:.9rem;background:var(--card)}
-  input:focus,select:focus{outline:2px solid var(--green);border-color:var(--green)}
-  .toggle{display:flex;gap:8px;margin-bottom:18px;font-family:Arial,sans-serif}
-  .toggle button{padding:8px 18px;border-radius:99px;border:1.5px solid var(--line);background:var(--card);cursor:pointer;font-weight:600;font-size:.85rem}
-  .toggle button.on{background:var(--green);color:#fff;border-color:var(--green)}
-  .letter{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:44px 50px;min-height:300px}
-  .letter b{font-weight:700}
-  .lname{font-size:1.15rem;font-weight:700;letter-spacing:.02em}
-  .lcontact{font-size:.82rem;color:var(--grey);margin-top:4px;margin-bottom:22px}
-  .lp{margin-bottom:14px;text-align:justify}
-  .lgap{height:14px}
-  .copybar{display:flex;justify-content:flex-end;margin:10px 0;gap:8px;font-family:Arial,sans-serif}
-  .copybar button{padding:9px 20px;border-radius:8px;border:0;background:var(--green);color:#fff;font-weight:600;cursor:pointer;font-size:.85rem}
-  .copybar button:hover{opacity:.9}
-  .copybar .ghost{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}
-  .copybar .pdf{background:var(--gold)}
-  .hint{font-family:Arial,sans-serif;font-size:.78rem;color:var(--grey);margin-top:-10px;margin-bottom:18px}
-  .warn{background:#FFF6E5;border:1px solid var(--gold);border-radius:8px;padding:10px 14px;font-family:Arial,sans-serif;font-size:.82rem;color:#6b5117;margin-bottom:16px;display:none}
-  .warn.show{display:block}
-  .cvnote{background:var(--green-soft);border:1px solid var(--green);border-radius:8px;padding:10px 14px;font-family:Arial,sans-serif;font-size:.85rem;color:var(--green);margin-bottom:16px;font-weight:600}
-  .jdbox{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:20px}
-  .jdbox textarea{width:100%;padding:9px 10px;border:1.5px solid var(--line);border-radius:6px;font-family:Arial,sans-serif;font-size:.85rem;resize:vertical;margin-top:6px;margin-bottom:10px}
-  .checkbtn{padding:8px 16px;border-radius:8px;border:0;background:var(--gold);color:#fff;font-weight:600;cursor:pointer;font-size:.85rem;font-family:Arial,sans-serif}
-  .checkbtn:hover{opacity:.9}
-  .jdresult{margin-top:12px;font-family:Arial,sans-serif;font-size:.88rem}
-  .jdresult .match{background:var(--green-soft);border-radius:8px;padding:10px 14px;color:var(--green);font-weight:600;margin-bottom:6px}
-  .jdresult .nomatch{color:var(--grey);font-style:italic}
-  .jdwarn{font-family:Arial,sans-serif;font-size:.75rem;color:var(--grey);margin-top:10px;line-height:1.4}
-  .noprint{}
-  @media print{
-    @page{ margin: 18mm 16mm; }
-    .noprint{display:none !important}
-    body{padding:0;background:#fff}
-    .letter{border:0;padding:0;border-radius:0}
-    .wrap{max-width:100%}
-  }
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D2D6FF4PM9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-D2D6FF4PM9');
+</script>
+
+<title>Mokhammad Afrizal Ramadhan — Operations, Finance & Executive Support</title>
+<meta name="description" content="CV & portofolio Mokhammad Afrizal Ramadhan, S.Pd. — profesional Operasional, Keuangan & Dukungan Eksekutif dengan 8+ tahun pengalaman. Otomatisasi Python/VBA, payroll 150+ karyawan, keuangan 21 cabang franchise.">
+<meta name="author" content="Mokhammad Afrizal Ramadhan">
+<meta name="theme-color" content="#123B26">
+<link rel="canonical" href="https://frizalrama.github.io/cv/">
+
+<!-- Favicon -->
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon.svg">
+<link rel="manifest" href="site.webmanifest">
+
+<!-- Open Graph -->
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="Mokhammad Afrizal Ramadhan — CV">
+<meta property="og:title" content="Mokhammad Afrizal Ramadhan, S.Pd.">
+<meta property="og:description" content="Operations, Finance & Executive Support Professional — 8+ tahun. Otomatisasi, payroll 150+ karyawan, keuangan 21 cabang franchise.">
+<meta property="og:url" content="https://frizalrama.github.io/cv/">
+<meta property="og:image" content="https://frizalrama.github.io/cv/assets/img/me/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="id_ID">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="profile:first_name" content="Mokhammad Afrizal">
+<meta property="profile:last_name" content="Ramadhan">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mokhammad Afrizal Ramadhan, S.Pd.">
+<meta name="twitter:description" content="Operations, Finance & Executive Support Professional — 8+ tahun pengalaman.">
+<meta name="twitter:image" content="https://frizalrama.github.io/cv/assets/img/me/og-image.jpg">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Person",
+  "name":"Mokhammad Afrizal Ramadhan",
+  "honorificSuffix":"S.Pd.",
+  "jobTitle":"Operations, Finance & Executive Support Professional",
+  "image":"https://frizalrama.github.io/cv/assets/img/me/og-image.jpg",
+  "url":"https://frizalrama.github.io/cv/",
+  "email":"mailto:frizalrama07@gmail.com",
+  "telephone":"+6282218080285",
+  "address":{"@type":"PostalAddress","addressLocality":"Kota Malang","addressRegion":"Jawa Timur","addressCountry":"ID"},
+  "sameAs":["https://www.linkedin.com/in/mafrizalramadhan"],
+  "alumniOf":{"@type":"CollegeOrUniversity","name":"Universitas Negeri Malang"},
+  "knowsLanguage":["id","en"],
+  "knowsAbout":["Process Automation","Python","VBA","Financial Reporting","Payroll","Tax (Coretax)","Human Resources","Executive Support"]
+}
+</script>
 </head>
 <body>
-<div class="wrap">
-  <div class="noprint">
-  <h1>✉️ Generator Surat Lamaran</h1>
-  <div class="sub">Isi 3 kolom di bawah SEKALI — seluruh surat (kop, perihal, isi, penutup) otomatis konsisten. Tidak ada lagi salah tempel.</div>
-  <div class="warn show" style="background:var(--green-soft);border-color:var(--green);color:var(--green)">
-    💡 Nama file PDF otomatis mengikuti Posisi & Perusahaan yang kamu isi. Saat klik Download PDF, ikuti instruksi pop-up untuk mematikan header/footer bawaan browser.
-  </div>
-  </div>
+<a class="skip-link" href="#main" data-i18n="skip">Lompat ke konten</a>
 
-  <div class="noprint">
-
-  <div class="jdbox">
-    <label>Tempel Deskripsi Lowongan (opsional — untuk saran varian CV)</label>
-    <textarea id="jobdesc" placeholder="Tempel isi lowongan di sini, lalu klik &quot;Cek Kata Kunci&quot;..." rows="5"></textarea>
-    <button type="button" class="checkbtn" onclick="analyzeJobDesc()">🔍 Cek Kata Kunci</button>
-    <div id="jdresult" class="jdresult"></div>
-    <div class="jdwarn">⚠️ Ini cuma pencocokan kata kunci sederhana (bukan AI) — bisa meleset untuk lowongan dengan istilah unik, atau yang butuh analisis lebih dalam (level pengalaman, skala perusahaan, dsb). Untuk penilaian yang lebih akurat, pakai project "Lamaran Kerja" di Claude.</div>
-  </div>
-
-  <div class="grid">
-    <div>
-      <label>Nama Perusahaan</label>
-      <input id="company" placeholder="mis. PT CNF Global Talenta" oninput="render()">
-    </div>
-    <div>
-      <label>Posisi yang Dilamar</label>
-      <input id="position" placeholder="mis. Account and Administration Coordinator" oninput="render()">
-    </div>
-    <div>
-      <label>Sumber Lowongan</label>
-      <input id="source" placeholder="mis. Jobstreet, LinkedIn, Website" oninput="render()">
-    </div>
-    <div>
-      <label>Tanggal</label>
-      <input id="date" placeholder="mis. 18 Juli 2026" oninput="render()">
-    </div>
-    <div>
-      <label>Varian CV yang dipakai</label>
-      <select id="cvvariant" onchange="render()">
-        <option value="master">Master (Operations, umum)</option>
-        <option value="finance">Finance & Operations</option>
-        <option value="finance_control">Finance, Tax & Financial Control</option>
-        <option value="purchasing">Purchasing, Procurement & Supply Chain</option>
-        <option value="hr">HR & General Affairs</option>
-        <option value="ea">Executive Assistant</option>
-        <option value="automation">Process Automation</option>
-        <option value="regional_ops">Regional Operations Manager</option>
-      </select>
+<!-- ===================== NAV ===================== -->
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top" aria-label="Mokhammad Afrizal Ramadhan — beranda">
+      <svg class="brand__seal" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#123B26"/><rect x="6" y="6" width="52" height="52" rx="10" fill="none" stroke="#B0812B" stroke-width="1.5" opacity=".8"/><text x="32" y="42" font-size="24" letter-spacing="-1" text-anchor="middle" fill="#EFE3C6" font-family="Georgia,serif" font-weight="700">MAR</text></svg>
+      <span><b>Mokhammad Afrizal Ramadhan</b><small>Operations · Finance · Executive Support</small></span>
+    </a>
+    <nav class="nav__links" aria-label="Bagian">
+      <a href="#ringkasan" data-i18n="nav1">Ringkasan</a>
+      <a href="#pengalaman" data-i18n="nav2">Pengalaman</a>
+      <a href="#proyek" data-i18n="nav3">Proyek</a>
+      <a href="#keahlian" data-i18n="nav4">Keahlian</a>
+      <a href="#sertifikasi" data-i18n="nav5">Sertifikasi</a>
+      <a href="#kontak" data-i18n="nav6">Kontak</a>
+    </nav>
+    <div class="nav__actions">
+      <div class="lang" role="group" aria-label="Pilih bahasa / Language">
+        <button type="button" data-lang="id" aria-pressed="true">ID</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a class="btn btn--primary" href="https://wa.me/6282218080285" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.4-.3.5-.2.2-.3.4-.2.6.2.4.8 1.2 1.6 1.9 1 .9 1.8 1.1 2.1 1.3.2.1.4.1.6-.1.1-.2.7-.8.9-1 .2-.3.4-.2.6-.1.2.1 1.5.7 1.7.9.2.1.4.2.4.3.1.1.1.6-.1 1.2Z"/></svg>
+        <span data-i18n="wabtn">Hubungi Saya</span>
+      </a>
     </div>
   </div>
+</header>
 
-  <div id="warn" class="warn">⚠️ Isi ketiga kolom di atas dulu (Perusahaan, Posisi, Sumber) supaya surat lengkap dan tidak ada bagian [placeholder] yang lupa diganti.</div>
+<main id="main">
+<span id="top"></span>
 
-  <div id="cvnote" class="cvnote noprint"></div>
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div class="hero__copy" data-reveal>
+      <span class="hero__eyebrow"><span class="dot"></span><span data-i18n="eyebrow">Operasional · Keuangan · Executive Support · Otomatisasi</span></span>
+      <h1>
+        Mokhammad Afrizal
+        <span class="ln2">Ramadhan <span class="deg">S.Pd.</span></span>
+      </h1>
+      <p class="hero__headline" data-i18n="headline">Operations, Finance &amp; Executive Support Professional</p>
+      <p class="hero__tag" data-i18n="tagline">Dipercaya owner memegang dua lini bisnis sekaligus — kantor notaris &amp; jaringan franchise ice cream internasional 21 cabang.</p>
+      <div class="hero__meta">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg><span data-i18n="loc">Kota Malang, Jawa Timur, Indonesia</span></span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span data-i18n="exp">8+ tahun pengalaman</span></span>
+      </div>
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="mailto:frizalrama07@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          <span data-i18n="contactbtn">Hubungi Saya</span>
+        </a>
+        <a class="btn btn--gold" href="https://wa.me/6282218080285" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.4-.3.5-.2.2-.3.4-.2.6.2.4.8 1.2 1.6 1.9 1 .9 1.8 1.1 2.1 1.3.2.1.4.1.6-.1.1-.2.7-.8.9-1 .2-.3.4-.2.6-.1.2.1 1.5.7 1.7.9.2.1.4.2.4.3.1.1.1.6-.1 1.2Z"/></svg>
+          WhatsApp
+        </a>
+        <a class="btn btn--ghost" href="https://www.linkedin.com/in/mafrizalramadhan" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.94 5a1.94 1.94 0 1 1-3.88 0 1.94 1.94 0 0 1 3.88 0ZM3.4 8.6h3.1V21H3.4V8.6Zm5.1 0h3v1.7h.05c.42-.8 1.45-1.7 3-1.7 3.2 0 3.8 2.1 3.8 4.9V21h-3.1v-5.5c0-1.3 0-3-1.85-3s-2.1 1.4-2.1 2.9V21h-3.1V8.6Z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
 
-  <div class="toggle">
-    <button id="btn-id" class="on" onclick="setLang('id')">🇮🇩 Bahasa Indonesia</button>
-    <button id="btn-en" onclick="setLang('en')">🇬🇧 English</button>
+    <div class="portrait" data-reveal>
+      <figure class="avatar">
+        <img src="assets/img/me/profile.webp" width="440" height="440"
+             alt="Foto formal Mokhammad Afrizal Ramadhan mengenakan jas hitam" fetchpriority="high">
+      </figure>
+    </div>
   </div>
-  </div>
 
-  <div class="letter" id="letter"></div>
-
-  <div class="copybar noprint">
-    <button class="ghost" onclick="resetAll()">Reset</button>
-    <button onclick="copyLetter()">📋 Copy Teks</button>
-    <button class="pdf" onclick="downloadPDF()">⬇️ Download PDF</button>
+  <div class="wrap">
+    <div class="trust" data-reveal>
+      <span data-i18n="trust1">Mengelola keuangan <b>3&nbsp;brand</b> — Aicha, Momoyo &amp; Mixue.</span>
+      <span data-i18n="trust2">Otomatisasi memangkas kerja <b>12&nbsp;jam&nbsp;→&nbsp;3&nbsp;jam</b>.</span>
+      <span data-i18n="trust3">Sistem buatan sendiri <b>masih aktif dipakai</b> hingga kini.</span>
+    </div>
   </div>
-  <div class="hint noprint" id="copystatus"></div>
+</section>
+
+<!-- ===================== 01 · LEDGER / RINGKASAN ===================== -->
+<section class="section" id="ringkasan">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-idx">01</span>
+      <h2 class="sec-title" data-i18n="s1title">Neraca <em>kompetensi</em></h2>
+      <p class="sec-lead" data-i18n="s1lead">Angka-angka kunci dari 8+ tahun kerja — dibaca seperti laporan keuangan.</p>
+    </div>
+
+    <div class="ledger" data-reveal>
+      <div class="ledger__head">
+        <span data-i18n="ledgerhead">Ringkasan Kinerja</span>
+        <span class="stamp">◆ FY 2015–2026</span>
+      </div>
+      <div class="ledger__body">
+        <div class="lrow">
+          <div class="lrow__main"><div class="lrow__lbl" data-i18n="k1l">Pengalaman profesional</div><div class="lrow__sub" data-i18n="k1s">Lintas administrasi, HR, keuangan &amp; otomatisasi</div></div>
+          <div class="lrow__dots" aria-hidden="true"></div>
+          <div class="lrow__val"><span class="count" data-count="8">8</span><span class="u" data-i18n="uyear">+ tahun</span></div>
+        </div>
+        <div class="lrow">
+          <div class="lrow__main"><div class="lrow__lbl" data-i18n="k2l">Efisiensi via otomatisasi</div><div class="lrow__sub" data-i18n="k2s">Proses berkas: 12 jam → 3 jam (Python/VBA)</div></div>
+          <div class="lrow__dots" aria-hidden="true"></div>
+          <div class="lrow__val"><span class="count" data-count="75">75</span><span class="u">%</span></div>
+        </div>
+        <div class="lrow">
+          <div class="lrow__main"><div class="lrow__lbl" data-i18n="k3l">Cabang franchise dikelola</div><div class="lrow__sub" data-i18n="k3s">Keuangan 3 brand: Aicha · Momoyo · Mixue</div></div>
+          <div class="lrow__dots" aria-hidden="true"></div>
+          <div class="lrow__val"><span class="count" data-count="21">21</span><span class="u" data-i18n="ubranch">cabang</span></div>
+        </div>
+        <div class="lrow">
+          <div class="lrow__main"><div class="lrow__lbl" data-i18n="k4l">Karyawan dalam payroll</div><div class="lrow__sub" data-i18n="k4s">Absensi hingga transfer gaji, setiap bulan</div></div>
+          <div class="lrow__dots" aria-hidden="true"></div>
+          <div class="lrow__val"><span class="count" data-count="150">150</span><span class="u" data-i18n="uperson">+ orang</span></div>
+        </div>
+        <div class="lrow">
+          <div class="lrow__main"><div class="lrow__lbl" data-i18n="k5l">Berkas hukum diproses</div><div class="lrow__sub" data-i18n="k5s">Rekanan pembiayaan nasional, per bulan</div></div>
+          <div class="lrow__dots" aria-hidden="true"></div>
+          <div class="lrow__val"><span class="count" data-count="2000" data-format="thousand">2.000</span><span class="u" data-i18n="umonth">/ bulan</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 02 · PENGALAMAN ===================== -->
+<section class="section section--alt" id="pengalaman">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-idx">02</span>
+      <h2 class="sec-title" data-i18n="s2title">Jejak <em>pengalaman</em></h2>
+      <p class="sec-lead" data-i18n="s2lead">Delapan tahun tanggung jawab yang terus bertambah — dari operator data hingga memegang dua lini bisnis.</p>
+    </div>
+
+    <div class="tl">
+      <!-- 1 -->
+      <div class="tl__item" data-reveal>
+        <div class="tl__dot" aria-hidden="true"></div>
+        <div class="tl__date">Jan 2022<small data-i18n="now">— Sekarang</small></div>
+        <div class="card">
+          <div class="tl__role" data-i18n="e1role">Finance &amp; Operations Manager — Divisi Franchise</div>
+          <div class="tl__org">Kantor Notaris Budi Sutanto, S.H., M.Kn. <span class="pill" data-i18n="e1pill">Dipercaya owner</span></div>
+          <ul class="tl__list">
+            <li data-i18n="e1a">Keuangan end-to-end 3 brand (Aicha, Momoyo, Mixue) — dari pemasukan penjualan sampai pengeluaran bahan baku.</li>
+            <li data-i18n="e1b">Payroll 150+ karyawan: monitoring absensi hingga transfer gaji.</li>
+            <li data-i18n="e1c">Pajak via Coretax: PPh 21, PPh Final, PPh 23 — selalu tepat waktu.</li>
+            <li data-i18n="e1d">Membangun sendiri aplikasi AbsenKu &amp; StokGudang (lihat proyek).</li>
+            <li data-i18n="e1e">Template laporan keuangan real-time (Google Sheets + Apps Script).</li>
+          </ul>
+          <span class="award"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="m8.5 12-1.5 9 5-3 5 3-1.5-9"/></svg><span data-i18n="e1award">Merancang &amp; membangun sendiri AbsenKu dan StokGudang dari nol — dua sistem operasional yang kini jadi tulang punggung harian 21 cabang &amp; masih aktif dipakai.</span></span>
+        </div>
+      </div>
+      <!-- 2 -->
+      <div class="tl__item" data-reveal>
+        <div class="tl__dot" aria-hidden="true"></div>
+        <div class="tl__date"><span data-i18n="e2date">Agu 2018</span><small data-i18n="now">— Sekarang</small></div>
+        <div class="card">
+          <div class="tl__role" data-i18n="e2role">Administrative, HR &amp; GA Officer · Tangan Kanan Pimpinan</div>
+          <div class="tl__org">Kantor Notaris Budi Sutanto, S.H., M.Kn.</div>
+          <ul class="tl__list">
+            <li data-i18n="e2a">Dokumen hukum rekanan pembiayaan nasional — 5 kota/kabupaten, 2.000 berkas per bulan.</li>
+            <li data-i18n="e2b">Otomatisasi Python &amp; VBA memangkas proses dari 12 jam menjadi 3 jam (75%).</li>
+            <li data-i18n="e2c">Mewakili pimpinan di acara penting (termasuk saat dua agenda bersamaan); mengelola agenda, itinerary, tiket &amp; akomodasi perjalanan dinas.</li>
+            <li data-i18n="e2d">Berkas digital rekanan BPN online (2021–sekarang), kas kantor, rekrutmen, dan IT troubleshooting.</li>
+          </ul>
+          <span class="award"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="m8.5 12-1.5 9 5-3 5 3-1.5-9"/></svg><span data-i18n="e2award">Meningkatkan kapasitas &amp; kecepatan input berkas via otomatisasi Python/VBA — efisiensi 75% (12 jam → 3 jam), sekaligus menaikkan volume order berkas yang dapat ditangani.</span></span>
+        </div>
+      </div>
+      <!-- 3 -->
+      <div class="tl__item" data-reveal>
+        <div class="tl__dot" aria-hidden="true"></div>
+        <div class="tl__date">Sep 2017<small>— Jul 2018</small></div>
+        <div class="card">
+          <div class="tl__role" data-i18n="e3role">Data Administrator</div>
+          <div class="tl__org">KPU Kabupaten Malang</div>
+          <ul class="tl__list">
+            <li data-i18n="e3a">Verifikasi puluhan ribu data pemilih (SIDALIH, Excel, Word).</li>
+          </ul>
+          <span class="award"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="m8.5 12-1.5 9 5-3 5 3-1.5-9"/></svg><span data-i18n="e3aw1">Operator Data Terbaik — KPU Kab. Malang (2018)</span></span>
+          <span class="award"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="m8.5 12-1.5 9 5-3 5 3-1.5-9"/></svg><span data-i18n="e3aw2">Piagam Operator Data — KPU Prov. Jatim, Pilgub 2018</span></span>
+        </div>
+      </div>
+      <!-- 4 -->
+      <div class="tl__item" data-reveal>
+        <div class="tl__dot" aria-hidden="true"></div>
+        <div class="tl__date"><span data-i18n="e4date">Des 2016</span><small>— Feb 2017</small></div>
+        <div class="card">
+          <div class="tl__role" data-i18n="e4role">Volunteer Verifikasi &amp; Validasi Lapangan</div>
+          <div class="tl__org">Kementerian Sosial RI</div>
+          <ul class="tl__list">
+            <li data-i18n="e4a">Verifikasi &amp; validasi data penerima manfaat langsung di lapangan.</li>
+          </ul>
+        </div>
+      </div>
+      <!-- 5 -->
+      <div class="tl__item" data-reveal>
+        <div class="tl__dot" aria-hidden="true"></div>
+        <div class="tl__date">Jan 2015<small>— Apr 2015</small></div>
+        <div class="card">
+          <div class="tl__role" data-i18n="e5role">Staff Administrasi (Magang)</div>
+          <div class="tl__org">PT PLN (Persero) Kab. Pamekasan</div>
+          <ul class="tl__list">
+            <li data-i18n="e5a">Membangun software arsiparis untuk merapikan dokumen unit.</li>
+          </ul>
+          <span class="award"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="m8.5 12-1.5 9 5-3 5 3-1.5-9"/></svg><span data-i18n="e5aw">Staf Magang Terbaik</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 03 · PROYEK ===================== -->
+<section class="section" id="proyek">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-idx">03</span>
+      <h2 class="sec-title" data-i18n="s3title">Proyek <em>unggulan</em></h2>
+      <p class="sec-lead" data-i18n="s3lead">Tiga sistem yang saya rancang, bangun, dan operasikan sendiri untuk bisnis nyata.</p>
+    </div>
+
+    <div class="proj">
+      <!-- AbsenKu -->
+      <article class="pcard" data-reveal>
+        <div class="pcard__info">
+          <span class="pcard__no">PROYEK 01</span>
+          <h3>AbsenKu</h3>
+          <span class="pcard__meta" data-i18n="p1meta">Absensi &amp; payroll · Web App</span>
+          <p data-i18n="p1desc">Absensi online dengan verifikasi GPS + selfie wajib. Dua mode: Crew &amp; Owner. Rekap per outlet, gaji otomatis berbasis tier &amp; lembur, serta export rekap dan slip gaji sekali klik.</p>
+          <div class="pcard__stats">
+            <span class="stat-chip"><b>150+</b> <span data-i18n="p1c1">karyawan</span></span>
+            <span class="stat-chip"><b>GPS</b> + <span data-i18n="p1c2">selfie wajib</span></span>
+            <span class="stat-chip"><b>1-klik</b> <span data-i18n="p1c3">slip gaji</span></span>
+          </div>
+          <div class="pcard__tags">
+            <span class="tag">JavaScript</span><span class="tag">Apps Script</span><span class="tag">Google Sheets</span><span class="tag">Geolocation</span>
+          </div>
+        </div>
+        <div class="gallery" data-gallery="AbsenKu">
+          <figure class="shot" tabindex="0" role="button" data-full="assets/img/projects/absen-login.webp" aria-label="Buka gambar: halaman login AbsenKu">
+            <img src="assets/img/projects/absen-login-t.webp" loading="lazy" alt="Halaman login AbsenKu dengan verifikasi GPS dan selfie wajib">
+            <span class="shot__zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4M11 8v6M8 11h6"/></svg></span>
+            <figcaption data-i18n="p1i1">Halaman login — verifikasi GPS + selfie wajib</figcaption>
+          </figure>
+          <figure class="shot" tabindex="0" role="button" data-full="assets/img/projects/absen-owner.webp" aria-label="Buka gambar: panel Owner AbsenKu">
+            <img src="assets/img/projects/absen-owner-t.webp" loading="lazy" alt="Panel Owner AbsenKu dengan filter rekap dan export slip gaji">
+            <span class="shot__zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4M11 8v6M8 11h6"/></svg></span>
+            <figcaption data-i18n="p1i2">Panel Owner — filter rekap &amp; export slip gaji</figcaption>
+          </figure>
+          <figure class="shot" tabindex="0" role="button" data-full="assets/img/projects/absen-dashboard.webp" aria-label="Buka gambar: rekap kehadiran per outlet">
+            <img src="assets/img/projects/absen-dashboard-t.webp" loading="lazy" alt="Rekap kehadiran crew per outlet">
+            <span class="shot__zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4M11 8v6M8 11h6"/></svg></span>
+            <figcaption data-i18n="p1i3">Rekap kehadiran per outlet</figcaption>
+          </figure>
+          <figure class="shot" tabindex="0" role="button" data-full="assets/img/projects/absen-rekap.webp" aria-label="Buka gambar: export rekap absensi otomatis">
+            <img src="assets/img/projects/absen-rekap-t.webp" loading="lazy" alt="Export rekap absensi otomatis ke Excel">
+            <span class="shot__zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4M11 8v6M8 11h6"/></svg></span>
+            <figcaption data-i18n="p1i4">Export rekap absensi otomatis</figcaption>
+          </figure>
+          <figure class="shot" tabindex="0" role="button" data-full="assets/img/projects/absen-slip.webp" aria-label="Buka gambar: export rekap gaji">
+            <img src="assets/img/projects/absen-slip-t.webp" loading="lazy" alt="Export rekap gaji berbasis tier dan lembur">
+            <span class="shot__zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4M11 8v6M8 11h6"/></svg></span>
+            <figcaption data-i18n="p1i5">Export rekap gaji</figcaption>
+          </figure>
+          <p class="gallery__note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 11 4.6-2.5 8-6 8-11V5l-8-3Z"/></svg><span data-i18n="privnote">Sebagian data disamarkan demi privasi.</span></p>
+        </div>
+      </article>
+
+      <!-- StokGudang -->
+      <article class="pcard pcard--flip" data-reveal>
+        <div class="pcard__info">
+          <span class="pcard__no">PROYEK 02</span>
+          <h3>StokGudang</h3>
+          <span class="pcard__meta" data-i18n="p2meta">Inventori multi-role · Web App</span>
+          <p data-i18n="p2desc">Inventori real-time dengan 5 peran (Owner, Purchasing, Checker, Admin Gudang, Crew Outlet). Alur lengkap: PO → verifikasi → alokasi &amp; surat jalan → transfer antar outlet → stock opname → laporan pergerakan.</p>
+          <div class="pcard__stats">
+            <span class="stat-chip"><b>5</b> <span data-i18n="p2c1">peran akses</span></span>
+            <span class="stat-chip"><b>21</b> <span data-i18n="p2c2">cabang</span></span>
+            <span class="stat-chip"><b>real-time</b> <span data-i18n="p2c3">stok</span></span>
+          </div>
+          <div class="pcard__tags">
+            <span class="tag">JavaScript</span><span class="tag">Apps Script</span><span class="tag">RBAC</span><span class="tag">Inventory</span>
+          </div>
+        </div>
+        <div class="gallery" data-gallery="StokGudang">
+          <figure class="shot" tabindex="0" role="button" data-full="assets/img/projects/stok-login.webp" aria-label="Buka gambar: login multi-role StokGudang">
+            <img src="assets/img/projects/stok-login-t.webp" loading="lazy" alt="Login multi-role StokGudang">
+            <span class="shot__zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4M11 8v6M8 11h6"/></svg></span>
+            <figcaption data-i18n="p2i1">Login multi-role</figcaption>
+          </figure>
+          <figure class="shot" tabindex="0" role="button" data-full="assets/img/projects/stok-dashboard.webp" aria-label="Buka gambar: dashboard Owner StokGudang">
+            <img src="assets/img/projects/stok-dashboard-t.webp" loading="lazy" alt="Dashboard Owner StokGudang dengan ringkasan stok real-time">
+            <span class="shot__zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4M11 8v6M8 11h6"/></svg></span>
+            <figcaption data-i18n="p2i2">Dashboard Owner — ringkasan stok real-time</figcaption>
+          </figure>
+          <figure class="shot" tabindex="0" role="button" data-full="assets/img/projects/stok-admin.webp" aria-label="Buka gambar: role Admin Gudang">
+            <img src="assets/img/projects/stok-admin-t.webp" loading="lazy" alt="Role Admin Gudang untuk alokasi order dan stock opname">
+            <span class="shot__zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4M11 8v6M8 11h6"/></svg></span>
+            <figcaption data-i18n="p2i3">Role Admin Gudang — alokasi order &amp; stock opname</figcaption>
+          </figure>
+          <figure class="shot" tabindex="0" role="button" data-full="assets/img/projects/stok-crew.webp" aria-label="Buka gambar: role Crew Outlet">
+            <img src="assets/img/projects/stok-crew-t.webp" loading="lazy" alt="Role Crew Outlet untuk order bahan baku">
+            <span class="shot__zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4M11 8v6M8 11h6"/></svg></span>
+            <figcaption data-i18n="p2i4">Role Crew Outlet — order bahan baku</figcaption>
+          </figure>
+          <p class="gallery__note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 11 4.6-2.5 8-6 8-11V5l-8-3Z"/></svg><span data-i18n="privnote">Sebagian data disamarkan demi privasi.</span></p>
+        </div>
+      </article>
+
+      <!-- Fidusia -->
+      <article class="pcard" data-reveal>
+        <div class="pcard__info">
+          <span class="pcard__no">PROYEK 03</span>
+          <h3 data-i18n="p3title">Suite Otomatisasi Berkas Fidusia (Python)</h3>
+          <span class="pcard__meta" data-i18n="p3meta">Python · RPA · Suite end-to-end 3 tahap</span>
+          <p data-i18n="p3desc">Rangkaian bot Python yang menangani berkas fidusia dari hulu ke hilir — mengunduh dokumen debitur, mengisi form pendaftaran online, hingga mencetak akta massal. Semuanya tanpa sentuhan manual.</p>
+          <ol class="stages">
+            <li><span class="stages__n">1</span><p><b>Download</b><span data-i18n="p3s1d">Bot membaca Excel, login, lalu mengunduh dokumen debitur secara massal.</span></p></li>
+            <li><span class="stages__n">2</span><p><b>Input</b><span data-i18n="p3s2d">Mengisi form pendaftaran fidusia online otomatis — termasuk dropdown alamat bertingkat.</span></p></li>
+            <li><span class="stages__n">3</span><p><b>Print</b><span data-i18n="p3s3d">Mencetak ratusan dokumen akta sekali klik — buka-tutup file otomatis, pilih halaman yang dicetak &amp; atur ukuran kertas.</span></p></li>
+          </ol>
+          <div class="pcard__stats">
+            <span class="stat-chip"><b data-i18n="p3c1b">2.000</b> <span data-i18n="p3c1">berkas / bulan</span></span>
+            <span class="stat-chip"><b data-i18n="p3c4">12j → 3j</b></span>
+            <span class="stat-chip"><b>75%</b> <span data-i18n="p3c2">lebih cepat</span></span>
+            <span class="stat-chip"><b data-i18n="p3c3b">Ratusan</b> <span data-i18n="p3c3">dokumen dicetak otomatis</span></span>
+          </div>
+          <div class="pcard__tags">
+            <span class="tag">Python</span><span class="tag">Selenium/RPA</span><span class="tag">openpyxl</span><span class="tag">Word Automation</span>
+          </div>
+        </div>
+        <div class="gallery" data-gallery="Fidusia">
+          <figure class="shot" tabindex="0" role="button" data-full="assets/img/projects/fidusia-download.webp" aria-label="Buka gambar: bot mengunduh dokumen">
+            <img src="assets/img/projects/fidusia-download-t.webp" loading="lazy" alt="Bot mengunduh dokumen debitur secara massal, log di PowerShell">
+            <span class="shot__zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4M11 8v6M8 11h6"/></svg></span>
+            <figcaption data-i18n="p3i1">Bot Python — download dokumen debitur massal</figcaption>
+          </figure>
+          <figure class="shot" tabindex="0" role="button" data-full="assets/img/projects/fidusia-input.webp" aria-label="Buka gambar: bot mengisi form pendaftaran">
+            <img src="assets/img/projects/fidusia-input-t.webp" loading="lazy" alt="Bot mengisi form pendaftaran online termasuk dropdown alamat bertingkat">
+            <span class="shot__zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4M11 8v6M8 11h6"/></svg></span>
+            <figcaption data-i18n="p3i2">Input form otomatis — dropdown alamat bertingkat</figcaption>
+          </figure>
+          <figure class="shot" tabindex="0" role="button" data-full="assets/img/projects/fidusia-print.webp" aria-label="Buka gambar: bot Python mencetak dokumen akta otomatis">
+            <img src="assets/img/projects/fidusia-print-t.webp" loading="lazy" alt="Bot Python mencetak dokumen akta secara otomatis, dengan log proses di terminal">
+            <span class="shot__zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4M11 8v6M8 11h6"/></svg></span>
+            <figcaption data-i18n="p3i3">Bot Python mencetak ratusan dokumen akta otomatis — buka-tutup file, pilih halaman &amp; ukuran kertas, sekali klik</figcaption>
+          </figure>
+          <p class="gallery__note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 11 4.6-2.5 8-6 8-11V5l-8-3Z"/></svg><span data-i18n="privnote">Sebagian data disamarkan demi privasi.</span></p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 04 · KEAHLIAN ===================== -->
+<section class="section section--alt" id="keahlian">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-idx">04</span>
+      <h2 class="sec-title" data-i18n="s4title">Keahlian <em>inti</em></h2>
+      <p class="sec-lead" data-i18n="s4lead">Perpaduan langka: paham keuangan &amp; pajak, cakap operasional, dan bisa membangun tools sendiri.</p>
+    </div>
+    <div class="skills" data-reveal-stagger>
+      <div class="skill-col">
+        <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m8 6-5 6 5 6M16 6l5 6-5 6M13 4l-2 16"/></svg></span><span data-i18n="sk1">Otomatisasi &amp; Teknologi</span></h3>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip" data-i18n="skc1">Process Automation</span><span class="chip">VBA / Macro</span><span class="chip">JavaScript</span><span class="chip">Apps Script</span><span class="chip">Excel Advanced</span><span class="chip" data-i18n="skc2">Web Development</span><span class="chip">Canva &amp; AI Tools</span>
+        </div>
+      </div>
+      <div class="skill-col">
+        <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></span><span data-i18n="sk2">Keuangan &amp; Pajak</span></h3>
+        <div class="chips">
+          <span class="chip" data-i18n="skc3">Laporan Keuangan</span><span class="chip">Payroll</span><span class="chip">Coretax (PPh 21/Final/23)</span><span class="chip" data-i18n="skc4">Manajemen Kas</span><span class="chip" data-i18n="skc5">Data Management</span>
+        </div>
+      </div>
+      <div class="skill-col">
+        <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0M16 6a3 3 0 0 1 0 5.5M17.5 20a5.5 5.5 0 0 0-3-4.9"/></svg></span><span data-i18n="sk3">HR, GA &amp; Executive Support</span></h3>
+        <div class="chips">
+          <span class="chip" data-i18n="skc6">Rekrutmen</span><span class="chip" data-i18n="skc7">Manajemen Absensi</span><span class="chip" data-i18n="skc8">Pengadaan</span><span class="chip">IT Troubleshooting</span><span class="chip" data-i18n="skc9">Agenda &amp; Perjalanan Dinas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 05 · SERTIFIKASI ===================== -->
+<section class="section" id="sertifikasi">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-idx">05</span>
+      <h2 class="sec-title" data-i18n="s5title">Sertifikasi &amp; <em>penghargaan</em></h2>
+      <p class="sec-lead" data-i18n="s5lead">Klik thumbnail untuk memperbesar. Sebagian nomor pada sertifikat disamarkan demi privasi.</p>
+    </div>
+    <div class="certs" data-reveal-stagger>
+      <figure class="cert" tabindex="0" role="button" data-full="assets/img/certs/akuntansi.webp" aria-label="Perbesar sertifikat Pelatihan Akuntansi">
+        <div class="cert__img"><img src="assets/img/certs/akuntansi-t.webp" loading="lazy" alt="Sertifikat Pelatihan Kerja Berbasis Kompetensi bidang Akuntansi"></div>
+        <figcaption class="cert__body"><div class="cert__year">2018</div><div class="cert__ttl" data-i18n="cert1t">Pelatihan Akuntansi · 320 Jam</div><div class="cert__by" data-i18n="cert1b">UPT PK Singosari — Disnakertrans Jatim</div></figcaption>
+      </figure>
+      <figure class="cert" tabindex="0" role="button" data-full="assets/img/certs/ratatype.webp" aria-label="Perbesar Golden Typing Certificate">
+        <div class="cert__img"><img src="assets/img/certs/ratatype-t.webp" loading="lazy" alt="Golden Typing Certificate Ratatype 61 WPM"></div>
+        <figcaption class="cert__body"><div class="cert__year">2024</div><div class="cert__ttl" data-i18n="cert2t">Golden Typing · 61 WPM</div><div class="cert__by" data-i18n="cert2b">Ratatype — akurasi 97,3% (Inggris)</div></figcaption>
+      </figure>
+      <figure class="cert" tabindex="0" role="button" data-full="assets/img/certs/piagam.webp" aria-label="Perbesar Piagam Operator Data KPU Jatim">
+        <div class="cert__img"><img src="assets/img/certs/piagam-t.webp" loading="lazy" alt="Piagam Penghargaan Operator Data KPU Provinsi Jawa Timur 2018"></div>
+        <figcaption class="cert__body"><div class="cert__year">2018</div><div class="cert__ttl" data-i18n="cert3t">Piagam Operator Data</div><div class="cert__by" data-i18n="cert3b">KPU Provinsi Jawa Timur — Pilgub 2018</div></figcaption>
+      </figure>
+      <div class="cert cert--noimg">
+        <div class="cert__body">
+          <svg class="medal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="m8.5 12-1.5 9 5-3 5 3-1.5-9"/></svg>
+          <div class="cert__year">2018</div><div class="cert__ttl" data-i18n="cert4t">Operator Data Terbaik</div><div class="cert__by" data-i18n="cert4b">KPU Kabupaten Malang</div>
+        </div>
+      </div>
+      <div class="cert cert--noimg">
+        <div class="cert__body">
+          <svg class="medal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="m8.5 12-1.5 9 5-3 5 3-1.5-9"/></svg>
+          <div class="cert__year">2015</div><div class="cert__ttl" data-i18n="cert5t">Staf Magang Terbaik</div><div class="cert__by">PT PLN (Persero)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 06 · PENDIDIKAN ===================== -->
+<section class="section section--alt" id="pendidikan">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-idx">06</span>
+      <h2 class="sec-title" data-i18n="s6title">Pendidikan</h2>
+    </div>
+    <div class="edu" data-reveal>
+      <div class="edu__crest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m12 4 10 5-10 5L2 9l10-5Z"/><path d="M6 11v4c0 1.7 2.7 3 6 3s6-1.3 6-3v-4M20 10v5"/></svg></div>
+      <div>
+        <h3>Universitas Negeri Malang</h3>
+        <div class="edu__meta" data-i18n="edumeta">S.Pd. Pendidikan Administrasi Perkantoran · 2013–2017</div>
+        <p data-i18n="edudesc">Jurusan Manajemen, Fakultas Ekonomi. Fondasi kuat di administrasi, manajemen, dan tata kelola organisasi.</p>
+        <div class="edu__badges">
+          <span class="stat-chip"><b>Cumlaude</b></span>
+          <span class="stat-chip">IPK <b>3,50</b>/4,00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 07 · KONTAK ===================== -->
+<section class="section contact" id="kontak">
+  <div class="wrap">
+    <div class="sec-head" style="justify-content:center;text-align:center">
+      <span class="sec-idx">07</span>
+      <h2 class="sec-title" style="flex-basis:100%" data-i18n="s7title" hidden>Kontak</h2>
+    </div>
+    <div class="contact__card" data-reveal>
+      <h2 data-i18n="ctitle">Mari <em>berkolaborasi</em></h2>
+      <p data-i18n="cdesc">Terbuka untuk peran di operasional, keuangan, dukungan eksekutif, atau proyek otomatisasi. Balasan cepat via WhatsApp &amp; email.</p>
+      <div class="contact__links">
+        <a class="btn btn--gold" href="https://wa.me/6282218080285" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.4-.3.5-.2.2-.3.4-.2.6.2.4.8 1.2 1.6 1.9 1 .9 1.8 1.1 2.1 1.3.2.1.4.1.6-.1.1-.2.7-.8.9-1 .2-.3.4-.2.6-.1.2.1 1.5.7 1.7.9.2.1.4.2.4.3.1.1.1.6-.1 1.2Z"/></svg>
+          +62 822-1808-0285
+        </a>
+        <a class="btn btn--ghost" href="mailto:frizalrama07@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          frizalrama07@gmail.com
+        </a>
+        <a class="btn btn--ghost" href="https://www.linkedin.com/in/mafrizalramadhan" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.94 5a1.94 1.94 0 1 1-3.88 0 1.94 1.94 0 0 1 3.88 0ZM3.4 8.6h3.1V21H3.4V8.6Zm5.1 0h3v1.7h.05c.42-.8 1.45-1.7 3-1.7 3.2 0 3.8 2.1 3.8 4.9V21h-3.1v-5.5c0-1.3 0-3-1.85-3s-2.1 1.4-2.1 2.9V21h-3.1V8.6Z"/></svg>
+          linkedin.com/in/mafrizalramadhan
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__rule"></div>
+    <p>© <span class="mono">2026</span> Mokhammad Afrizal Ramadhan, S.Pd. · <span data-i18n="foot">Dibuat dengan presisi ala ledger.</span></p>
+  </div>
+</footer>
+
+<!-- ===================== LIGHTBOX ===================== -->
+<div class="lb" id="lightbox" role="dialog" aria-modal="true" aria-label="Penampil gambar" aria-hidden="true">
+  <div class="lb__stage">
+    <span class="lb__count mono" id="lbCount"></span>
+    <button class="lb__close" id="lbClose" aria-label="Tutup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <button class="lb__btn lb__prev" id="lbPrev" aria-label="Sebelumnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <img class="lb__img" id="lbImg" alt="">
+    <button class="lb__btn lb__next" id="lbNext" aria-label="Berikutnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></button>
+    <div class="lb__cap" id="lbCap"></div>
+  </div>
 </div>
 
-<script>
-let lang = 'id';
-
-function setLang(l){
-  lang = l;
-  document.getElementById('btn-id').classList.toggle('on', l==='id');
-  document.getElementById('btn-en').classList.toggle('on', l==='en');
-  render();
-}
-
-function val(id){ return document.getElementById(id).value.trim(); }
-
-const CV_LABELS = {
-  master: 'Master (Operations, umum)',
-  finance: 'Finance & Operations',
-  finance_control: 'Finance, Tax & Financial Control',
-  purchasing: 'Purchasing, Procurement & Supply Chain',
-  hr: 'HR & General Affairs',
-  ea: 'Executive Assistant',
-  automation: 'Process Automation',
-  regional_ops: 'Regional Operations Manager',
-};
-
-function cvFileName(variant, lang) {
-  const langCode = lang === 'id' ? 'ID' : 'EN';
-  if (variant === 'master') {
-    return `CV_Mokhammad_Afrizal_Ramadhan_${langCode}.pdf`;
-  }
-  return `CV_Afrizal_${variant}_${langCode}.pdf`;
-}
-
-function updateCvNote() {
-  const variant = document.getElementById('cvvariant').value;
-  const fname = cvFileName(variant, lang);
-  const label = CV_LABELS[variant] || variant;
-  document.getElementById('cvnote').innerHTML =
-    `📎 Lampirkan CV: <b>${fname}</b> &nbsp;(${label})`;
-}
-
-// ---- Simple offline keyword matching (NOT AI — just substring counting) ----
-const KEYWORDS = {
-  finance_control: ['treasury','financial control','tax planning','tax engineering','capital management','internal control','compliance','risk management','cfo','vp finance','head of finance','chief financial','audit','governance'],
-  finance: ['finance manager','keuangan','accounting','akuntansi','financial reporting','payroll','coretax','pajak','tax reporting','p&l','budgeting','forecasting'],
-  purchasing: ['purchasing','procurement','pengadaan','pembelian','supply chain','inventory','warehouse','gudang','logistik','logistics','vendor management','rantai pasok'],
-  hr: ['human resources','sumber daya manusia',' hrd ','hrd,','hrbp','recruitment','rekrutmen','talent acquisition','people operations','general affairs'],
-  ea: ['executive assistant','personal assistant','asisten eksekutif','asisten pribadi','secretary','sekretaris','chief of staff','tangan kanan'],
-  automation: ['automation','otomatisasi','rpa','process improvement','python developer','data engineer','digitalization','digitalisasi','business process automation'],
-  regional_ops: ['regional manager','area manager','multi-outlet','multi-site','store operations','franchise operations','field operations','operasional cabang','manajer wilayah','manajer area'],
-  master: ['operations manager','manajer operasional','general manager','business operations','operations professional'],
-};
-
-function analyzeJobDesc() {
-  const text = document.getElementById('jobdesc').value.toLowerCase();
-  const resultEl = document.getElementById('jdresult');
-
-  if (!text.trim()) {
-    resultEl.innerHTML = '<div class="nomatch">Tempel deskripsi lowongan dulu di atas.</div>';
-    return;
-  }
-
-  const scores = {};
-  const matchedWords = {};
-  for (const [variant, words] of Object.entries(KEYWORDS)) {
-    let score = 0;
-    const found = [];
-    for (const w of words) {
-      if (text.includes(w.trim())) {
-        score++;
-        found.push(w.trim());
-      }
-    }
-    scores[variant] = score;
-    matchedWords[variant] = found;
-  }
-
-  const sorted = Object.entries(scores).sort((a,b) => b[1] - a[1]);
-  const [topVariant, topScore] = sorted[0];
-
-  if (topScore === 0) {
-    resultEl.innerHTML = '<div class="nomatch">Tidak ada kata kunci yang cocok jelas — coba pilih varian secara manual, atau pakai project "Lamaran Kerja" untuk analisis lebih akurat.</div>';
-    return;
-  }
-
-  // auto-select the dropdown to the top match
-  document.getElementById('cvvariant').value = topVariant;
-  render();
-
-  const words = matchedWords[topVariant].slice(0, 5).join(', ');
-  resultEl.innerHTML = `<div class="match">✅ Saran: <b>${CV_LABELS[topVariant]}</b><br>Kata kunci ditemukan: ${words}</div>`;
-}
-
-function render(){
-  const company = val('company') || '[Nama Perusahaan]';
-  const position = val('position') || '[Posisi]';
-  const source = val('source') || '[Sumber Lowongan]';
-  const date = val('date') || (lang==='id' ? '[Tanggal]' : '[Date]');
-
-  const warn = document.getElementById('warn');
-  if(!val('company') || !val('position') || !val('source')){
-    warn.classList.add('show');
-  } else {
-    warn.classList.remove('show');
-  }
-
-  updateCvNote();
-
-  let html = '';
-  let plain = '';
-
-  if(lang === 'id'){
-    html = `
-      <div class="lname">MOKHAMMAD AFRIZAL RAMADHAN</div>
-      <div class="lcontact">Kota Malang, Jawa Timur &nbsp;•&nbsp; +62 822-1808-0285 &nbsp;•&nbsp; frizalrama07@gmail.com &nbsp;•&nbsp; linkedin.com/in/mafrizalramadhan &nbsp;•&nbsp; frizalrama.github.io/cv</div>
-      <div class="lp">Malang, ${esc(date)}</div>
-      <div class="lgap"></div>
-      <div class="lp">Kepada Yth.<br>HRD / Hiring Manager<br><b>${esc(company)}</b><br>di tempat</div>
-      <div class="lp"><b>Perihal: Lamaran Posisi ${esc(position)}</b></div>
-      <div class="lp">Dengan hormat,</div>
-      <div class="lp">Melalui surat ini, saya bermaksud melamar posisi <b>${esc(position)}</b> di <b>${esc(company)}</b> yang saya ketahui melalui ${esc(source)}. Dengan pengalaman 8+ tahun di bidang operasional, keuangan, dan administrasi, saya yakin dapat memberikan kontribusi nyata bagi perusahaan Anda.</div>
-      <div class="lp">Saat ini saya dipercaya owner memegang dua lini bisnis sekaligus: administrasi kantor notaris dan pengelolaan jaringan franchise ice cream internasional 21 cabang (Aicha, Momoyo &amp; Mixue). Tanggung jawab saya mencakup keuangan end-to-end tiga brand, payroll 150+ karyawan, pelaporan pajak via Coretax, hingga mewakili pimpinan pada acara-acara penting — peran yang menuntut kepercayaan, ketelitian, dan kemampuan mengelola banyak prioritas sekaligus.</div>
-      <div class="lp">Nilai lebih yang saya tawarkan adalah kemampuan otomatisasi. Saya membangun sendiri sistem yang memangkas pekerjaan 12 jam menjadi 3 jam (efisiensi 75%) menggunakan Python dan VBA, serta mengembangkan website absensi-payroll otomatis dan aplikasi stok gudang real-time yang masih digunakan bisnis hingga hari ini. Bagi saya, setiap proses manual adalah peluang untuk dibuat lebih cepat, akurat, dan hemat biaya.</div>
-      <div class="lp">Saya melampirkan CV dan portfolio (frizalrama.github.io/cv) untuk gambaran lebih lengkap. Saya sangat terbuka untuk berdiskusi lebih lanjut mengenai bagaimana pengalaman saya dapat menjawab kebutuhan <b>${esc(company)}</b>. Terima kasih atas waktu dan perhatian Bapak/Ibu.</div>
-      <div class="lgap"></div>
-      <div class="lp">Hormat saya,</div>
-      <div class="lgap"></div>
-      <div class="lp"><b>Mokhammad Afrizal Ramadhan</b></div>
-    `;
-    plain = `MOKHAMMAD AFRIZAL RAMADHAN
-Kota Malang, Jawa Timur  •  +62 822-1808-0285  •  frizalrama07@gmail.com  •  linkedin.com/in/mafrizalramadhan  •  frizalrama.github.io/cv
-
-Malang, ${date}
-
-Kepada Yth.
-HRD / Hiring Manager
-${company}
-di tempat
-
-Perihal: Lamaran Posisi ${position}
-
-Dengan hormat,
-
-Melalui surat ini, saya bermaksud melamar posisi ${position} di ${company} yang saya ketahui melalui ${source}. Dengan pengalaman 8+ tahun di bidang operasional, keuangan, dan administrasi, saya yakin dapat memberikan kontribusi nyata bagi perusahaan Anda.
-
-Saat ini saya dipercaya owner memegang dua lini bisnis sekaligus: administrasi kantor notaris dan pengelolaan jaringan franchise ice cream internasional 21 cabang (Aicha, Momoyo & Mixue). Tanggung jawab saya mencakup keuangan end-to-end tiga brand, payroll 150+ karyawan, pelaporan pajak via Coretax, hingga mewakili pimpinan pada acara-acara penting — peran yang menuntut kepercayaan, ketelitian, dan kemampuan mengelola banyak prioritas sekaligus.
-
-Nilai lebih yang saya tawarkan adalah kemampuan otomatisasi. Saya membangun sendiri sistem yang memangkas pekerjaan 12 jam menjadi 3 jam (efisiensi 75%) menggunakan Python dan VBA, serta mengembangkan website absensi-payroll otomatis dan aplikasi stok gudang real-time yang masih digunakan bisnis hingga hari ini. Bagi saya, setiap proses manual adalah peluang untuk dibuat lebih cepat, akurat, dan hemat biaya.
-
-Saya melampirkan CV dan portfolio (frizalrama.github.io/cv) untuk gambaran lebih lengkap. Saya sangat terbuka untuk berdiskusi lebih lanjut mengenai bagaimana pengalaman saya dapat menjawab kebutuhan ${company}. Terima kasih atas waktu dan perhatian Bapak/Ibu.
-
-Hormat saya,
-
-Mokhammad Afrizal Ramadhan`;
-  } else {
-    html = `
-      <div class="lname">MOKHAMMAD AFRIZAL RAMADHAN</div>
-      <div class="lcontact">Malang, East Java, Indonesia &nbsp;•&nbsp; +62 822-1808-0285 &nbsp;•&nbsp; frizalrama07@gmail.com &nbsp;•&nbsp; linkedin.com/in/mafrizalramadhan &nbsp;•&nbsp; frizalrama.github.io/cv</div>
-      <div class="lp">Malang, ${esc(date)}</div>
-      <div class="lgap"></div>
-      <div class="lp">Dear Hiring Manager,<br><b>${esc(company)}</b></div>
-      <div class="lp"><b>Re: Application for the ${esc(position)} role</b></div>
-      <div class="lp">I am writing to apply for the <b>${esc(position)}</b> role at <b>${esc(company)}</b>, which I found through ${esc(source)}. With 8+ years of experience across operations, finance, and administration, I am confident I can deliver measurable value to your team.</div>
-      <div class="lp">I am currently trusted by my employer to run two business lines at once: the administration of a notary office and the operations of a 21-outlet international ice cream franchise network (Aicha, Momoyo &amp; Mixue). My responsibilities span end-to-end finances for three brands, payroll for 150+ employees, tax reporting via Indonesia's Coretax system, and representing the principal at important engagements — a role built on trust, precision, and managing many competing priorities.</div>
-      <div class="lp">What sets me apart is automation. I independently built systems that cut a 12-hour process down to 3 hours (a 75% efficiency gain) using Python and VBA, and developed an automated attendance-payroll website and a real-time warehouse stock application that the business still relies on today. I treat every manual process as an opportunity to make work faster, more accurate, and less costly.</div>
-      <div class="lp">My CV and portfolio (frizalrama.github.io/cv) are attached for a fuller picture. I would welcome the opportunity to discuss how my experience can serve <b>${esc(company)}</b>'s needs, and I am comfortable working remotely and independently. Thank you for your time and consideration.</div>
-      <div class="lgap"></div>
-      <div class="lp">Sincerely,</div>
-      <div class="lgap"></div>
-      <div class="lp"><b>Mokhammad Afrizal Ramadhan</b></div>
-    `;
-    plain = `MOKHAMMAD AFRIZAL RAMADHAN
-Malang, East Java, Indonesia  •  +62 822-1808-0285  •  frizalrama07@gmail.com  •  linkedin.com/in/mafrizalramadhan  •  frizalrama.github.io/cv
-
-Malang, ${date}
-
-Dear Hiring Manager,
-${company}
-
-Re: Application for the ${position} role
-
-I am writing to apply for the ${position} role at ${company}, which I found through ${source}. With 8+ years of experience across operations, finance, and administration, I am confident I can deliver measurable value to your team.
-
-I am currently trusted by my employer to run two business lines at once: the administration of a notary office and the operations of a 21-outlet international ice cream franchise network (Aicha, Momoyo & Mixue). My responsibilities span end-to-end finances for three brands, payroll for 150+ employees, tax reporting via Indonesia's Coretax system, and representing the principal at important engagements — a role built on trust, precision, and managing many competing priorities.
-
-What sets me apart is automation. I independently built systems that cut a 12-hour process down to 3 hours (a 75% efficiency gain) using Python and VBA, and developed an automated attendance-payroll website and a real-time warehouse stock application that the business still relies on today. I treat every manual process as an opportunity to make work faster, more accurate, and less costly.
-
-My CV and portfolio (frizalrama.github.io/cv) are attached for a fuller picture. I would welcome the opportunity to discuss how my experience can serve ${company}'s needs, and I am comfortable working remotely and independently. Thank you for your time and consideration.
-
-Sincerely,
-
-Mokhammad Afrizal Ramadhan`;
-  }
-
-  document.getElementById('letter').innerHTML = html;
-  document.getElementById('letter').dataset.plain = plain;
-}
-
-function esc(s){
-  const d = document.createElement('div');
-  d.textContent = s;
-  return d.innerHTML;
-}
-
-function copyLetter(){
-  const text = document.getElementById('letter').dataset.plain || '';
-  navigator.clipboard.writeText(text).then(()=>{
-    document.getElementById('copystatus').textContent = '✅ Tersalin ke clipboard — tinggal paste ke Word/email.';
-    setTimeout(()=>{ document.getElementById('copystatus').textContent=''; }, 3000);
-  }).catch(()=>{
-    document.getElementById('copystatus').textContent = 'Gagal copy otomatis — silakan seleksi teks manual lalu Ctrl+C.';
-  });
-}
-
-function downloadPDF(){
-  const company = val('company') || (lang==='id' ? 'Perusahaan' : 'Company');
-  const position = val('position') || (lang==='id' ? 'Posisi' : 'Position');
-  const fullName = 'Mokhammad Afrizal Ramadhan';
-
-  let title;
-  if(lang === 'id'){
-    title = `Surat Lamaran ${fullName} - ${position} - ${company}`;
-  } else {
-    title = `Cover Letter ${fullName} - ${position} - ${company}`;
-  }
-  // buang karakter yang tidak boleh ada di nama file
-  title = title.replace(/[\\\/:*?"<>|]/g, '-');
-  document.title = title;
-
-  const msg = lang === 'id'
-    ? 'Sebelum lanjut:\n\n1. Di dialog Print yang akan muncul, klik "Opsi lainnya" / "More settings"\n2. MATIKAN centang "Header dan footer"\n3. Baru klik Simpan\n\nKlik OK untuk lanjut ke dialog Print.'
-    : 'Before continuing:\n\n1. In the Print dialog that appears, click "More settings"\n2. TURN OFF "Headers and footers"\n3. Then click Save\n\nClick OK to continue to the Print dialog.';
-
-  if(confirm(msg)){
-    window.print();
-  }
-}
-
-function resetAll(){
-  ['company','position','source','date'].forEach(id => document.getElementById(id).value = '');
-  render();
-}
-
-render();
-</script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
