@@ -234,7 +234,7 @@ const V = [
     p3:'I built AbsenKu myself, a web-based attendance, leave, and payroll system that replaced manual WhatsApp attendance and cut payroll processing from 3 days to 6 hours. I also trained Store Supervisors to recruit independently.',
     short:'I currently handle recruitment, payroll for 185+ employees, and operational GA for 21 outlets, including an attendance and payroll system I built myself.',
     extra:'I also manage recruitment and payroll for 185+ employees, plus operational GA such as outlet leases, maintenance, and licensing.' },
-   kw:['human resource','hrd','hr ','payroll','rekrut','recruit','general affair','personalia','talent'] },
+   kw:['human resource','hrd','hr ','payroll','rekrut','recruit','general affair','personalia','talent','facility','facilities','fasilitas','housekeeping','office utilities','asset management','manajemen aset','office maintenance','office management','vendor management'] },
 
  { id:'HeadAdmin', name:'Head Admin & EA', desc:'Agenda, korespondensi, dokumen',
    id_:{
@@ -310,6 +310,16 @@ const VOCAB = [
  ['HRIS', /hris/, ['HRGA']],
  ['General affairs', /general affair|\bga\b/, ['HRGA']],
  ['Manajemen aset', /aset|asset/, ['HRGA']],
+ ['Fasilitas kantor / facility', /facilit|fasilitas|office management/, ['HRGA','RegionalOps']],
+ ['Housekeeping / kebersihan', /housekeeping|kebersihan|cleaning|janitor/, ['HRGA','RegionalOps']],
+ ['Transportasi / kendaraan', /transportation|transportasi|kendaraan|vehicle/, ['HRGA']],
+ ['Akomodasi / perjalanan', /accommodation|akomodasi/, ['HeadAdmin','HRGA']],
+ ['Utilitas kantor', /utilit|listrik|air minum/, ['HRGA']],
+ ['Cost control', /cost control|cost saving|efisiensi biaya/, ['Finance','Purchasing','RegionalOps']],
+ ['Keamanan / security', /security|keamanan|satpam/, []],
+ ['K3 / standar keselamatan', /safety standard|\bk3\b|keselamatan|occupational safety/, []],
+ ['Renovasi / proyek fasilitas', /renovation|renovasi|facility improvement|fit.?out/, []],
+ ['Sektor tambang / energi / korporasi besar', /mining|pertambangan|energy|energi|large-scale|korporasi besar/, []],
  ['Perizinan', /perizinan|izin|licens|permit|oss|\bnib\b/, ['HRGA','HeadAdmin']],
  ['Vendor / supplier', /vendor|supplier|pemasok/, ['Purchasing','HRGA','RegionalOps']],
  ['Sewa / lease', /sewa|lease|rental/, ['HRGA','RegionalOps']],
@@ -338,7 +348,7 @@ const VOCAB = [
  ['SQL / database', /\bsql\b|database|supabase|postgres/, ['Automation']],
  ['AI tools', /\bai\b|chatgpt|\bllm\b|artificial intelligence|machine learning/, ['Automation']],
  ['Bahasa Inggris', /english|bahasa inggris/, []],
- ['Software akuntansi (SAP/Accurate/dll.)', /\bsap\b|accurate|jurnal\.id|zahir|odoo|myob|quickbooks|xero/, []],
+ ['Software akuntansi (SAP/Accurate/dll.)', /\bsap\b|(?:with|using|knowledge of|experience (?:in|with)) accurate\b|accurate online|accurate 5|accurate software|accurate accounting|jurnal\.id|zahir|odoo|myob|quickbooks|xero/, []],
  ['Brevet', /brevet/, []],
  ['S1 Akuntansi', /s1 akuntansi|sarjana akuntansi|accounting degree|degree in accounting/, []],
  ['BPJS', /bpjs/, []],
@@ -463,6 +473,8 @@ function analyze(){
   const score = Object.fromEntries(V.map(v => [v.id, 0]));
   hits.forEach(([, , vars]) => vars.forEach((id, i) => score[id] += i === 0 ? 2 : 1));
   V.forEach(v => v.kw.forEach(k => { if(jd.includes(k)) score[v.id] += 3; }));
+  const pos = val('position').toLowerCase();
+  if(pos) V.forEach(v => { if(v.kw.some(k => pos.includes(k))) score[v.id] += 12; });
   const ranked = V.map(v => [v.id, score[v.id]]).sort((a,b) => b[1]-a[1]);
   if(ranked[0][1] === 0){ note.textContent = 'Tidak ada kata kunci yang cukup jelas. Pilih varian secara manual.'; note.className = 'note warn show'; }
   else {
