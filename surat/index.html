@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Generator Surat Lamaran — Afrizal</title>
+<!-- Google Analytics GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D2D6FF4PM9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-D2D6FF4PM9');
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --ink:#14231F; --green:#0F5E52; --green-soft:#E3EEEB; --gold:#A87A1B; --gold-soft:#FBF3E2;
+    --grey:#667571; --line:#D8E0DD; --paper:#F4F6F5; --card:#fff; --warn:#B4541A; --warn-soft:#FDEFE6;
+  }
+  *{box-sizing:border-box}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--paper);color:var(--ink);margin:0;padding:24px 16px 60px;line-height:1.5}
+  .wrap{max-width:980px;margin:0 auto}
+  h1{font-size:1.45rem;margin:0 0 4px}
+  .sub{color:var(--grey);font-size:.88rem;margin-bottom:20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+  .card h2{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--green);margin:0 0 12px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:700px){.grid{grid-template-columns:1fr}}
+  label{font-size:.75rem;font-weight:600;color:var(--grey);display:block;margin-bottom:4px}
+  input,select,textarea{width:100%;padding:9px 10px;border:1.5px solid var(--line);border-radius:8px;font:inherit;font-size:.9rem;background:#fff;color:var(--ink)}
+  textarea{resize:vertical;min-height:64px}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--green);border-color:var(--green)}
+  .full{grid-column:1/-1}
+  .hint{font-size:.75rem;color:var(--grey);margin-top:4px}
+  .btn{padding:9px 16px;border-radius:8px;border:0;background:var(--green);color:#fff;font:inherit;font-weight:600;font-size:.85rem;cursor:pointer}
+  .btn:hover{opacity:.9}
+  .btn:disabled{opacity:.45;cursor:default}
+  .btn.dark{background:var(--ink)} .btn.gold{background:var(--gold)}
+  .btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+  .btn.small{padding:5px 10px;font-size:.75rem}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .row.end{justify-content:flex-end}
+  .note{font-size:.82rem;border-radius:8px;padding:10px 12px;margin-top:10px;display:none}
+  .note.show{display:block}
+  .note.ok{background:var(--green-soft);color:var(--green)}
+  .note.warn{background:var(--warn-soft);color:var(--warn)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .chip{font-size:.72rem;padding:3px 9px;border-radius:99px;border:1px solid}
+  .chip.have{background:var(--green-soft);border-color:#B9D4CD;color:var(--green)}
+  .chip.other{background:var(--gold-soft);border-color:#E8D3A6;color:#7A5810}
+  .chip.none{background:var(--warn-soft);border-color:#F2C9AE;color:var(--warn)}
+  .tpl-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  @media(max-width:800px){.tpl-cards{grid-template-columns:repeat(2,1fr)}}
+  .tpl{border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;background:#fff;text-align:left;font:inherit;color:inherit}
+  .tpl:hover{border-color:var(--green)}
+  .tpl.on{border-color:var(--green);background:var(--green-soft)}
+  .tpl .n{font-weight:700;font-size:.85rem}
+  .tpl .d{font-size:.72rem;color:var(--grey);margin-top:2px}
+  .attach{margin-top:10px;font-size:.82rem}
+  .attach code{background:var(--gold-soft);color:#7A5810;padding:2px 6px;border-radius:5px}
+  .extras label{display:flex;gap:8px;align-items:flex-start;font-weight:400;color:var(--ink);font-size:.82rem;margin:6px 0;cursor:pointer}
+  .extras input{width:auto;margin-top:3px}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap}
+  .tab{padding:7px 14px;border-radius:99px;border:1.5px solid var(--line);background:#fff;cursor:pointer;font:inherit;font-weight:600;font-size:.82rem;color:var(--ink)}
+  .tab.on{background:var(--green);color:#fff;border-color:var(--green)}
+  .lang .tab.on{background:var(--ink);border-color:var(--ink)}
+  .bar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+  .paper{background:#fff;border:1px solid var(--line);border-radius:10px;padding:36px 40px;font-family:Calibri,Carlito,'Segoe UI',Arial,sans-serif;font-size:.95rem}
+  @media(max-width:600px){.paper{padding:22px 18px}}
+  .lh-name{font-size:1.35rem;font-weight:700;color:var(--green);letter-spacing:.02em}
+  .lh-contact{font-size:.74rem;color:var(--grey);margin:2px 0 8px}
+  .lh-rule{height:2px;background:var(--gold);margin-bottom:18px}
+  .body{white-space:pre-wrap}
+  .meta{font-size:.75rem;color:var(--grey);margin-top:8px}
+  .meta.over{color:var(--warn);font-weight:600}
+  .status{font-size:.8rem;color:var(--green);min-height:1.2em;margin-top:6px}
+  table{width:100%;border-collapse:collapse;font-size:.8rem}
+  th,td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
+  th{font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:var(--grey)}
+  td select{padding:4px 6px;font-size:.78rem}
+  .tablewrap{overflow-x:auto}
+  .empty{color:var(--grey);font-size:.82rem;padding:8px 0}
+  .x{background:none;border:0;color:var(--grey);cursor:pointer;font-size:1rem}
+  .x:hover{color:var(--warn)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>✉️ Generator Surat Lamaran</h1>
+  <div class="sub">Isi data lowongan, pilih varian CV yang dilampirkan, lalu salin surat, body email, atau pesan singkat. Semua tersimpan di browser ini saja.</div>
+
+  <!-- 1. Data lowongan -->
+  <div class="card">
+    <h2>1 · Data lowongan</h2>
+    <div class="grid">
+      <div><label for="company">Nama perusahaan</label><input id="company" placeholder="mis. PT Sinar Pangan Nusantara"></div>
+      <div><label for="position">Posisi yang dilamar</label><input id="position" placeholder="mis. Finance Supervisor"></div>
+      <div>
+        <label for="source">Sumber lowongan</label>
+        <select id="source">
+          <option>LinkedIn</option><option>Jobstreet</option><option>Glints</option><option>Kalibrr</option>
+          <option>Indeed</option><option value="web">Website resmi perusahaan</option><option>Instagram</option><option value="other">Lainnya…</option>
+        </select>
+        <input id="sourceOther" placeholder="Tulis sumbernya" style="display:none;margin-top:6px">
+      </div>
+      <div><label for="date">Tanggal surat</label><input id="date" type="date"></div>
+      <div>
+        <label for="avail">Ketersediaan kerja</label>
+        <select id="avail">
+          <option value="none">Tidak disebut</option>
+          <option value="onsite">On-site di Malang</option>
+          <option value="relocate" selected>Bersedia relokasi</option>
+          <option value="hybrid">Hybrid</option>
+          <option value="remote">Remote</option>
+        </select>
+      </div>
+      <div class="full">
+        <label for="motive">Alasan tertarik ke perusahaan ini (1 kalimat, opsional tapi paling berpengaruh)</label>
+        <textarea id="motive" placeholder="mis. Saya tertarik karena PT Sinar Pangan Nusantara sedang memperluas jaringan outlet di Jawa Timur, bidang yang saya jalani setiap hari."></textarea>
+        <div class="hint">Tulis dalam bahasa yang sama dengan surat. Surat dengan satu kalimat spesifik tentang perusahaan jauh lebih jarang dilewati HR.</div>
+      </div>
+    </div>
+    <div class="note warn" id="dupNote"></div>
+  </div>
+
+  <!-- 2. Analisis JD -->
+  <div class="card">
+    <h2>2 · Analisis deskripsi lowongan (opsional)</h2>
+    <textarea id="jobdesc" placeholder="Paste isi job description di sini…" style="min-height:90px"></textarea>
+    <div class="row end" style="margin-top:8px"><button class="btn dark" id="analyzeBtn">🔎 Analisis &amp; sarankan varian</button></div>
+    <div class="note ok" id="suggestNote"></div>
+    <div id="kwBox" style="display:none;margin-top:10px">
+      <div class="hint" style="margin:0">Keyword dari JD, dibandingkan dengan varian yang dipilih:</div>
+      <div class="chips" id="kwChips"></div>
+      <div class="hint">Hijau: ada di CV ini. Kuning: ada di CV varian lain. Oranye: belum ada di CV mana pun. Jangan menulis yang memang tidak kamu kuasai.</div>
+    </div>
+  </div>
+
+  <!-- 3. Varian -->
+  <div class="card">
+    <h2>3 · Varian CV yang dilampirkan</h2>
+    <div class="tpl-cards" id="tplCards"></div>
+    <div class="attach" id="attachLine"></div>
+    <div class="extras" id="extras" style="margin-top:12px"></div>
+  </div>
+
+  <!-- 4. Hasil -->
+  <div class="card">
+    <h2>4 · Hasil</h2>
+    <div class="bar">
+      <div class="tabs" id="outTabs">
+        <button class="tab on" data-out="letter">Surat lamaran</button>
+        <button class="tab" data-out="email">Body email</button>
+        <button class="tab" data-out="short">Pesan singkat</button>
+      </div>
+      <div class="tabs lang" id="langTabs">
+        <button class="tab on" data-lang="id">ID</button>
+        <button class="tab" data-lang="en">EN</button>
+      </div>
+    </div>
+    <div class="note warn" id="missNote"></div>
+    <div class="paper" id="paper"></div>
+    <div class="meta" id="meta"></div>
+    <div class="row end" style="margin-top:12px">
+      <button class="btn ghost" id="resetBtn">Reset form</button>
+      <button class="btn" id="copyBtn">📋 Copy</button>
+      <button class="btn gold" id="pdfBtn">📄 Save PDF</button>
+      <button class="btn dark" id="logBtn">📝 Catat lamaran</button>
+    </div>
+    <div class="status" id="status"></div>
+  </div>
+
+  <!-- 5. Riwayat -->
+  <div class="card">
+    <div class="bar" style="margin-bottom:6px">
+      <h2 style="margin:0">5 · Riwayat lamaran <span id="histCount" style="color:var(--grey)"></span></h2>
+      <div class="row">
+        <button class="btn ghost small" id="exportBtn">Export CSV</button>
+        <label class="btn ghost small" style="margin:0;color:var(--ink);font-size:.75rem">Import CSV<input type="file" id="importFile" accept=".csv" style="display:none"></label>
+      </div>
+    </div>
+    <div class="tablewrap"><table id="histTable"></table></div>
+    <div class="hint">Tersimpan di browser ini. Export CSV sesekali sebagai cadangan, atau untuk dipindah ke perangkat lain lewat Import.</div>
+  </div>
+</div>
+
+<script>
+/* ================= DATA ================= */
+const ME = {
+  name: 'MOKHAMMAD AFRIZAL RAMADHAN',
+  sign: { id:'Mokhammad Afrizal Ramadhan, S.Pd.', en:'Mokhammad Afrizal Ramadhan' },
+  contact: { id:'Kota Malang, Jawa Timur | +62 822-1808-0285 | frizalrama07@gmail.com | linkedin.com/in/mafrizalramadhan | frizalrama.github.io/cv',
+             en:'Malang, East Java, Indonesia | +62 822-1808-0285 | frizalrama07@gmail.com | linkedin.com/in/mafrizalramadhan | frizalrama.github.io/cv' },
+  phone:'+62 822-1808-0285', linkedin:'linkedin.com/in/mafrizalramadhan', portfolio:'frizalrama.github.io/cv'
+};
+
+const V = [
+ { id:'Utama', name:'Utama', desc:'Finance & Operations Manager',
+   id_:{
+    p2:'Saat ini saya menjabat sebagai Finance & Operations Manager untuk 21 outlet franchise es krim dan minuman (Mixue, Momoyo, Ai-Cha) di 4 kota dengan 185+ karyawan, sekaligus menangani administrasi kantor notaris milik owner yang sama. Saya memegang P&L, pajak via Coretax, payroll, dan operasional lapangan, serta ikut mengawal ekspansi jaringan dari 3 menjadi 21 outlet sejak 2022.',
+    p3:'Nilai lebih saya adalah kemampuan membangun sistem sendiri untuk pekerjaan yang saya pegang. AbsenKu memangkas proses payroll dari 3 hari menjadi 6 jam, laporan keuangan harian kini bisa dicek owner keesokan paginya (sebelumnya terlambat sekitar 4 hari), dan bot Python/VBA mengambil alih pengolahan hingga 2.000 berkas per bulan.',
+    short:'Saat ini saya Finance & Operations Manager untuk 21 outlet F&B (185+ karyawan) dan membangun sendiri sistem payroll serta laporan keuangan yang dipakai setiap hari.',
+    extra:'Saya juga terbiasa memegang dua lini usaha sekaligus sebagai tangan kanan owner.' },
+   en:{
+    p2:'I currently serve as Finance & Operations Manager for 21 ice cream and beverage franchise outlets (Mixue, Momoyo, Ai-Cha) across 4 cities with 185+ employees, while also handling administration for the owner\'s notary office. I own the P&L, tax filing via Coretax, payroll, and field operations, and have helped drive the network\'s expansion from 3 to 21 outlets since 2022.',
+    p3:'What sets me apart is that I build the systems behind the work I run. AbsenKu cut payroll processing from 3 days to 6 hours, daily financial reports are now ready for the owner the next morning (previously about 4 days late), and a Python/VBA bot handles up to 2,000 documents per month.',
+    short:'I am currently Finance & Operations Manager for 21 F&B outlets (185+ employees) and built the payroll and financial reporting systems used there every day.',
+    extra:'I am also used to running two business lines at once as the owner\'s right hand.' },
+   kw:['operations manager','general manager','business operations','office manager','operasional'] },
+
+ { id:'Finance', name:'Finance & Accounting', desc:'P&L, rekonsiliasi, closing, pajak',
+   id_:{
+    p2:'Saat ini saya memegang P&L 21 outlet franchise F&B: pencatatan penjualan dan pembelian harian, rekonsiliasi bank mingguan, closing bulanan, budgeting, serta laporan kontrol biaya bulanan ke owner. Saya juga mengurus PPh 21, PPh Final, PB1, dan PPh Pasal 4 ayat 2 via Coretax secara tepat waktu.',
+    p3:'Untuk menjaga ketepatan data, saya membangun laporan keuangan real-time sehingga hasil closing malam bisa dicek keesokan paginya (sebelumnya terlambat sekitar 4 hari), serta alur stok dengan pemisahan tugas antara pembelian, penerimaan, dan pengeluaran barang, yang membuat selisih stok opname mendekati nol.',
+    short:'Saat ini saya memegang P&L, rekonsiliasi bank, closing bulanan, dan pajak via Coretax untuk 21 outlet F&B.',
+    extra:'Di sisi keuangan, saya menangani rekonsiliasi bank mingguan, closing bulanan, dan pajak via Coretax untuk 21 outlet.' },
+   en:{
+    p2:'I currently own the P&L for 21 F&B franchise outlets: daily sales and purchase recording, weekly bank reconciliation, monthly closing, budgeting, and monthly cost-control reports to the owner. I also file PPh 21, final income tax, PB1 (restaurant tax), and Article 4(2) rent tax via Coretax on time.',
+    p3:'To keep the numbers reliable, I built real-time financial reporting so each evening\'s closing can be reviewed the next morning (previously about 4 days late), and a stock flow with segregation of duties between purchasing, receiving, and issuing goods, which keeps stock-count variance close to zero.',
+    short:'I currently own the P&L, bank reconciliation, monthly closing, and tax filing via Coretax for 21 F&B outlets.',
+    extra:'On the finance side, I handle weekly bank reconciliation, monthly closing, and tax filing via Coretax for 21 outlets.' },
+   kw:['finance','keuangan','accounting','akuntansi','tax','pajak','controller','cost control','bookkeep'] },
+
+ { id:'HRGA', name:'HR & GA', desc:'Rekrutmen, payroll, sewa, perizinan',
+   id_:{
+    p2:'Saat ini saya mengelola siklus SDM 185+ karyawan di 21 outlet: rekrutmen 5 sampai 8 crew per bulan, jadwal shift, evaluasi Store Head, hingga payroll. Di sisi GA, saya mengurus sewa dan perawatan outlet, perizinan (OSS, NIB, reklame), inventaris aset termasuk kendaraan operasional, serta pemantauan kontrak vendor.',
+    p3:'Saya membangun sendiri AbsenKu, sistem absensi, cuti, dan payroll berbasis web yang menggantikan absensi manual via WhatsApp dan memangkas proses gaji dari 3 hari menjadi 6 jam. Saya juga melatih Store Supervisor agar mampu merekrut secara mandiri.',
+    short:'Saat ini saya mengelola rekrutmen, payroll 185+ karyawan, dan GA operasional 21 outlet, termasuk sistem absensi dan payroll yang saya bangun sendiri.',
+    extra:'Saya juga mengelola rekrutmen dan payroll 185+ karyawan, serta GA operasional seperti sewa, perawatan, dan perizinan outlet.' },
+   en:{
+    p2:'I currently run the HR cycle for 185+ employees across 21 outlets: recruiting 5 to 8 crew per month, shift scheduling, Store Head evaluation, and payroll. On the GA side, I manage outlet leases and maintenance, licensing (OSS, NIB, signage), the asset register including operational vehicles, and vendor contract tracking.',
+    p3:'I built AbsenKu myself, a web-based attendance, leave, and payroll system that replaced manual WhatsApp attendance and cut payroll processing from 3 days to 6 hours. I also trained Store Supervisors to recruit independently.',
+    short:'I currently handle recruitment, payroll for 185+ employees, and operational GA for 21 outlets, including an attendance and payroll system I built myself.',
+    extra:'I also manage recruitment and payroll for 185+ employees, plus operational GA such as outlet leases, maintenance, and licensing.' },
+   kw:['human resource','hrd','hr ','payroll','rekrut','recruit','general affair','personalia','talent'] },
+
+ { id:'HeadAdmin', name:'Head Admin & EA', desc:'Agenda, korespondensi, dokumen',
+   id_:{
+    p2:'Sejak 2018 saya menjadi tangan kanan pimpinan kantor notaris: mengelola agenda, korespondensi resmi, notulen, perjalanan dinas, serta administrasi hingga 2.000 berkas hukum per bulan, dan mewakili pimpinan pada akad di bank maupun acara mitra. Saya terbiasa menjaga kerahasiaan dokumen dan data klien.',
+    p3:'Pekerjaan berkas tersebut kemudian saya otomatisasi dengan bot Python dan VBA, sehingga proses 12 jam kini berjalan sekitar 3 jam tanpa input manual. Kapasitas yang terbebas membuat saya dipercaya memegang administrasi dan keuangan 21 outlet franchise milik owner, termasuk sewa, perizinan, dan pajak.',
+    short:'Sejak 2018 saya menjadi tangan kanan pimpinan kantor notaris, mengelola agenda, korespondensi, dan hingga 2.000 berkas hukum per bulan.',
+    extra:'Saya juga berpengalaman sebagai tangan kanan pimpinan: agenda, korespondensi, perjalanan dinas, dan dokumen rahasia.' },
+   en:{
+    p2:'Since 2018 I have been the right hand to the principal of a notary office: managing the agenda, official correspondence, meeting minutes, business travel, and administration of up to 2,000 legal documents per month, and representing the principal at bank signings and partner events. I am used to handling confidential documents and client data.',
+    p3:'I later automated that document work with a Python and VBA bot, so a 12-hour process now runs in about 3 hours with no manual input. The capacity this freed up led the owner to entrust me with the administration and finances of his 21 franchise outlets, including leases, licensing, and tax.',
+    short:'Since 2018 I have been the right hand to a notary office principal, managing the agenda, correspondence, and up to 2,000 legal documents per month.',
+    extra:'I also have experience as a principal\'s right hand: agenda, correspondence, business travel, and confidential documents.' },
+   kw:['executive assistant','personal assistant','secretary','sekretaris','head admin','kepala admin','admin','asisten'] },
+
+ { id:'RegionalOps', name:'Regional Ops', desc:'21 outlet, ekspansi, SOP',
+   id_:{
+    p2:'Saat ini saya memimpin 21 outlet franchise F&B di 4 kota melalui struktur 4 Store Supervisor, 21 Store Head, dan 185+ crew. Saya mengawal ekspansi dari 3 menjadi 21 outlet, mulai dari survei lokasi, budget pembukaan, sewa, hingga rekrutmen crew awal, serta memegang P&L, pembelian bahan baku, dan audit kebersihan serta SOP mingguan di hari acak.',
+    p3:'Saya terbiasa menyelesaikan masalah di lapangan, dari kekurangan bahan mendadak lewat transfer antar-outlet hingga gangguan listrik, dan mendorong omzet lewat event lokal seperti lomba mewarnai, kunjungan sekolah, dan bazar. Dua outlet kami masuk Top 3 omzet se-Jawa Timur, dan sistem payroll serta stok yang saya bangun sendiri membantu tim fokus pada operasional.',
+    short:'Saat ini saya memimpin 21 outlet F&B di 4 kota (185+ karyawan) dan mengawal ekspansi dari 3 menjadi 21 outlet.',
+    extra:'Saya juga memimpin operasional 21 outlet di 4 kota dan mengawal ekspansinya dari 3 outlet.' },
+   en:{
+    p2:'I currently lead 21 F&B franchise outlets across 4 cities through 4 Store Supervisors, 21 Store Heads, and 185+ crew. I drove the expansion from 3 to 21 outlets, from site surveys, opening budgets, and leases to initial crew recruitment, and I own the P&L, raw-material purchasing, and weekly hygiene and SOP audits on random days.',
+    p3:'I am used to solving problems on the ground, from sudden stock shortages handled through inter-outlet transfers to power outages, and I lift sales through local events such as coloring contests, school visits, and bazaars. Two of our outlets ranked in the East Java Top 3 by revenue, and the payroll and stock systems I built let the team stay focused on operations.',
+    short:'I currently lead 21 F&B outlets across 4 cities (185+ employees) and drove the expansion from 3 to 21 outlets.',
+    extra:'I also lead operations for 21 outlets across 4 cities and drove their expansion from 3 outlets.' },
+   kw:['area manager','regional','district','multi-unit','multi unit','store operation','retail','franchise','outlet','cabang'] },
+
+ { id:'Purchasing', name:'Purchasing & Inventory', desc:'Order, vendor, stok, FIFO',
+   id_:{
+    p2:'Saat ini saya mengatur pemesanan bahan baku untuk 21 outlet F&B ke pusat franchise dengan lead time 5 hari, serta memilih vendor lokal untuk bahan segar seperti buah, telur, dan susu dengan membandingkan penawaran. Pembelian buah dilakukan harian dalam jumlah kecil untuk menekan waste, dan stok dikelola dengan prinsip FIFO/FEFO.',
+    p3:'Saya membangun StokGudang dengan alur pemisahan tugas: Purchasing membeli, Checker memvalidasi barang datang, Admin Gudang mengeluarkan barang, dan outlet mengonfirmasi penerimaan. Penataan dan opname per kedatangan turun dari 3 sampai 4 hari menjadi 1 hari, dengan selisih stok opname mendekati nol.',
+    short:'Saat ini saya mengatur pembelian bahan baku 21 outlet F&B dan membangun sistem stok dengan pemisahan tugas yang membuat selisih opname mendekati nol.',
+    extra:'Saya juga mengelola pembelian bahan baku dan stok 21 outlet dengan sistem yang saya bangun sendiri.' },
+   en:{
+    p2:'I currently manage raw-material ordering for 21 F&B outlets from the franchisor with a 5-day lead time, and select local vendors for fresh produce such as fruit, eggs, and milk by comparing quotes. Fruit is bought daily in small quantities to minimize waste, and stock is managed on a FIFO/FEFO basis.',
+    p3:'I built StokGudang around segregation of duties: Purchasing buys, the Checker validates incoming goods, the Warehouse Admin issues goods, and outlets confirm receipt. Put-away and stock counts per delivery dropped from 3 to 4 days to 1 day, with stock-count variance close to zero.',
+    short:'I currently manage raw-material purchasing for 21 F&B outlets and built a stock system with segregation of duties that keeps count variance close to zero.',
+    extra:'I also manage raw-material purchasing and stock for 21 outlets using a system I built myself.' },
+   kw:['purchasing','procurement','pembelian','pengadaan','inventory','inventori','stock','stok','warehouse','gudang','supply chain','buyer'] },
+
+ { id:'Automation', name:'Automation', desc:'Python, Apps Script, sistem internal',
+   id_:{
+    p2:'Saya membangun sendiri, tanpa tim, sistem yang kini dipakai setiap hari: bot Python dan VBA untuk hingga 2.000 berkas hukum per bulan (12 jam menjadi sekitar 3 jam), AbsenKu untuk absensi dan payroll 185+ karyawan (3 hari menjadi 6 jam), serta StokGudang, aplikasi stok real-time dengan 5 role akses untuk 21 outlet.',
+    p3:'Karena saya juga memegang keuangan dan operasional yang diotomatisasi, sistem yang saya buat menjawab masalah nyata dan benar-benar dipakai, bukan sekadar prototipe. Saya bekerja dengan Python (Playwright, web scraping), Google Apps Script, Supabase, GitHub, serta AI tools seperti Claude dan ChatGPT.',
+    short:'Saya membangun sendiri bot Python/VBA dan dua sistem web (payroll dan stok) yang dipakai setiap hari di 21 outlet.',
+    extra:'Saya juga membangun sendiri sistem yang memangkas payroll dari 3 hari menjadi 6 jam dan pekerjaan berkas dari 12 jam menjadi sekitar 3 jam.' },
+   en:{
+    p2:'I single-handedly built systems that are now used every day: a Python and VBA bot for up to 2,000 legal documents per month (12 hours down to about 3), AbsenKu for attendance and payroll of 185+ employees (3 days down to 6 hours), and StokGudang, a real-time stock app with 5 access roles for 21 outlets.',
+    p3:'Because I also run the finance and operations being automated, what I build solves real problems and actually gets used rather than staying a prototype. I work with Python (Playwright, web scraping), Google Apps Script, Supabase, GitHub, and AI tools such as Claude and ChatGPT.',
+    short:'I built a Python/VBA bot and two web systems (payroll and stock) that are used every day across 21 outlets.',
+    extra:'I also built systems that cut payroll from 3 days to 6 hours and document work from 12 hours to about 3.' },
+   kw:['automation','otomatisasi','python','rpa','developer','programmer','apps script','process improvement','digital','data analyst','vba'] },
+];
+const VBY = Object.fromEntries(V.map(v => [v.id, v]));
+
+/* JD vocabulary: which CV variants actually cover each term */
+const VOCAB = [
+ ['Akuntansi / accounting', /akuntansi|accounting/, ['Finance','Utama']],
+ ['Pajak / tax', /pajak|\btax|coretax|pph|ppn|spt/, ['Finance','Utama','HeadAdmin']],
+ ['P&L / laba rugi', /p&l|profit and loss|laba rugi|profit & loss/, ['Finance','Utama','RegionalOps']],
+ ['Budgeting', /budget|anggaran/, ['Finance','Utama','RegionalOps','Purchasing']],
+ ['Rekonsiliasi bank', /rekonsiliasi|reconcil/, ['Finance']],
+ ['Closing bulanan', /closing|tutup buku/, ['Finance']],
+ ['Cash flow', /cash ?flow|arus kas/, ['Finance']],
+ ['AP / AR', /\bap\b|\bar\b|account payable|account receivable|accounts payable|accounts receivable|hutang|piutang/, ['Finance']],
+ ['Laporan keuangan', /laporan keuangan|financial report|financial statement/, ['Finance','Utama']],
+ ['Audit / internal control', /audit|internal control|kontrol internal/, ['Finance','RegionalOps']],
+ ['Excel', /excel|spreadsheet/, ['Utama','Finance','HRGA','HeadAdmin','RegionalOps','Purchasing','Automation']],
+ ['Payroll', /payroll|penggajian|gaji/, ['HRGA','Finance','Utama']],
+ ['Rekrutmen', /rekrut|recruit|talent acquisition/, ['HRGA','RegionalOps','Utama']],
+ ['Onboarding', /onboarding/, ['HRGA']],
+ ['KPI / penilaian kinerja', /\bkpi|performance appraisal|penilaian kinerja|performance review/, ['HRGA','RegionalOps']],
+ ['HRIS', /hris/, ['HRGA']],
+ ['General affairs', /general affair|\bga\b/, ['HRGA']],
+ ['Manajemen aset', /aset|asset/, ['HRGA']],
+ ['Perizinan', /perizinan|izin|licens|permit|oss|\bnib\b/, ['HRGA','HeadAdmin']],
+ ['Vendor / supplier', /vendor|supplier|pemasok/, ['Purchasing','HRGA','RegionalOps']],
+ ['Sewa / lease', /sewa|lease|rental/, ['HRGA','RegionalOps']],
+ ['Maintenance', /maintenance|perawatan|pemeliharaan/, ['HRGA','RegionalOps']],
+ ['Kontrak', /kontrak|contract/, ['HRGA','HeadAdmin']],
+ ['Agenda / kalender', /agenda|calendar|kalender|jadwal pimpinan|schedule management/, ['HeadAdmin']],
+ ['Korespondensi', /korespondensi|correspondence|surat.menyurat/, ['HeadAdmin']],
+ ['Notulen', /notulen|minutes of meeting|meeting minutes|\bmom\b/, ['HeadAdmin']],
+ ['Perjalanan dinas', /perjalanan dinas|business travel|travel arrangement|itinerary/, ['HeadAdmin']],
+ ['Filing / arsip', /arsip|filing|archiv|dokumentasi/, ['HeadAdmin']],
+ ['Kerahasiaan', /rahasia|confidential/, ['HeadAdmin']],
+ ['Purchasing', /purchasing|pembelian|procurement|pengadaan/, ['Purchasing','RegionalOps']],
+ ['Inventory / stok', /inventor|\bstok|\bstock/, ['Purchasing','RegionalOps','Automation']],
+ ['FIFO / FEFO', /fifo|fefo/, ['Purchasing','RegionalOps']],
+ ['Gudang', /warehouse|gudang/, ['Purchasing']],
+ ['Negosiasi', /negosiasi|negotiat/, ['Purchasing']],
+ ['Multi-outlet / cabang', /outlet|cabang|multi.?unit|multi.?site|store/, ['RegionalOps','Utama']],
+ ['SOP', /\bsop\b|standard operating/, ['RegionalOps']],
+ ['F&B', /f&b|food|beverage|restoran|restaurant|kuliner/, ['RegionalOps','Utama','Purchasing']],
+ ['Leadership / tim', /leadership|memimpin|lead a team|manage a team|team leader|kepemimpinan/, ['RegionalOps','Utama']],
+ ['Sales / omzet', /sales|omzet|revenue|penjualan/, ['RegionalOps']],
+ ['Python', /python/, ['Automation']],
+ ['VBA / macro', /\bvba\b|macro/, ['Automation']],
+ ['Apps Script / Google Sheets', /apps script|google sheet/, ['Automation','Finance']],
+ ['Automation', /automation|otomatisasi|\brpa\b/, ['Automation']],
+ ['SQL / database', /\bsql\b|database|supabase|postgres/, ['Automation']],
+ ['AI tools', /\bai\b|chatgpt|\bllm\b|artificial intelligence|machine learning/, ['Automation']],
+ ['Bahasa Inggris', /english|bahasa inggris/, []],
+ ['Software akuntansi (SAP/Accurate/dll.)', /\bsap\b|accurate|jurnal\.id|zahir|odoo|myob|quickbooks|xero/, []],
+ ['Brevet', /brevet/, []],
+ ['S1 Akuntansi', /s1 akuntansi|sarjana akuntansi|accounting degree|degree in accounting/, []],
+ ['BPJS', /bpjs/, []],
+];
+
+const AVAIL = {
+  none:{id:'',en:''},
+  onsite:{id:'Saya berdomisili di Malang dan siap bekerja on-site.', en:'I am based in Malang and available to work on-site.'},
+  relocate:{id:'Saya bersedia relokasi ke lokasi penempatan.', en:'I am willing to relocate to the work location.'},
+  hybrid:{id:'Saya siap bekerja dengan skema hybrid.', en:'I am available for a hybrid arrangement.'},
+  remote:{id:'Saya terbiasa bekerja mandiri dan siap bekerja secara remote.', en:'I am used to working independently and am ready to work remotely.'},
+};
+const MONTHS = {
+  id:['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'],
+  en:['January','February','March','April','May','June','July','August','September','October','November','December']
+};
+
+/* ================= STATE ================= */
+const S = { variant:'Utama', extras:[], lang:'id', out:'letter' };
+const $ = id => document.getElementById(id);
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } }
+};
+const HKEY = 'surat_riwayat_v1';
+
+/* ================= HELPERS ================= */
+function val(id){ return $(id).value.trim(); }
+function source(){
+  const s = $('source').value;
+  if(s === 'other') return val('sourceOther');
+  if(s === 'web') return S.lang === 'id' ? 'website resmi perusahaan' : 'your company website';
+  return s;
+}
+function fmtDate(lang){
+  const v = $('date').value; if(!v) return lang === 'id' ? '[Tanggal]' : '[Date]';
+  const [y,m,d] = v.split('-').map(Number);
+  return lang === 'id' ? `${d} ${MONTHS.id[m-1]} ${y}` : `${MONTHS.en[m-1]} ${d}, ${y}`;
+}
+function todayISO(){ const t = new Date(); t.setMinutes(t.getMinutes() - t.getTimezoneOffset()); return t.toISOString().slice(0,10); }
+function esc(s){ return s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function words(s){ return (s.match(/\S+/g) || []).length; }
+function cvFile(){ return `CV_Afrizal_${S.variant}_${S.lang.toUpperCase()}.pdf`; }
+function txt(v){ return S.lang === 'id' ? v.id_ : v.en; }
+
+/* ================= BUILD TEXT ================= */
+function build(){
+  const L = S.lang, v = VBY[S.variant], t = txt(v);
+  const company = val('company') || (L==='id' ? '[Nama Perusahaan]' : '[Company]');
+  const position = val('position') || (L==='id' ? '[Posisi]' : '[Position]');
+  const src = source() || (L==='id' ? '[Sumber]' : '[Source]');
+  const motive = val('motive');
+  const avail = AVAIL[$('avail').value][L];
+  const extras = S.extras.map(id => txt(VBY[id]).extra).join(' ');
+  const p3 = t.p3 + (extras ? ' ' + extras : '');
+
+  let letter, email, short;
+  if(L === 'id'){
+    const p1 = `Dengan ini saya bermaksud melamar posisi ${position} di ${company}, sesuai informasi lowongan yang saya temukan di ${src}.` + (motive ? ' ' + motive : '');
+    const p4 = `Bersama surat ini saya lampirkan CV dan tautan portofolio (${ME.portfolio}) sebagai bahan pertimbangan.` + (avail ? ' ' + avail : '') + ` Saya berharap dapat berdiskusi lebih lanjut dengan Bapak/Ibu mengenai bagaimana pengalaman saya dapat mendukung ${company}. Atas perhatian Bapak/Ibu, saya ucapkan terima kasih.`;
+    letter = { head:`Malang, ${fmtDate('id')}\n\nKepada Yth.\nTim Rekrutmen ${company}\ndi Tempat\n\nPerihal: Lamaran Pekerjaan sebagai ${position}\nLampiran: CV dan Portofolio`,
+      body:['Dengan hormat,', p1, t.p2, p3, p4], sign:`Hormat saya,\n\n\n${ME.sign.id}` };
+    email = `Subjek: Lamaran ${position} - Mokhammad Afrizal Ramadhan\n\nYth. Tim Rekrutmen ${company},\n\nSaya Mokhammad Afrizal Ramadhan, bermaksud melamar posisi ${position} yang saya temukan di ${src}. ${t.short}` + (motive ? ' ' + motive : '') + `\n\nTerlampir CV dan surat lamaran saya. Portofolio dapat dilihat di ${ME.portfolio}.` + (avail ? ' ' + avail : '') + ` Saya berharap dapat berdiskusi lebih lanjut dengan Bapak/Ibu.\n\nHormat saya,\nMokhammad Afrizal Ramadhan\n${ME.phone} | ${ME.linkedin}`;
+    short = `Halo, saya Afrizal. Saya baru saja melamar posisi ${position} di ${company} melalui ${src}. ${t.short} Jika berkenan, saya senang bisa berdiskusi lebih lanjut. Terima kasih.`;
+  } else {
+    const p1 = `I am writing to apply for the ${position} position at ${company}, which I found on ${src}.` + (motive ? ' ' + motive : '');
+    const p4 = `My CV is attached, and my portfolio is available at ${ME.portfolio}.` + (avail ? ' ' + avail : '') + ` I would welcome the opportunity to discuss how my experience can support ${company}. Thank you for your time and consideration.`;
+    letter = { head:`Malang, ${fmtDate('en')}\n\nHiring Team\n${company}\n\nRe: Application for ${position}`,
+      body:['Dear Hiring Manager,', p1, t.p2, p3, p4], sign:`Sincerely,\n\n\n${ME.sign.en}` };
+    email = `Subject: Application for ${position} - Mokhammad Afrizal Ramadhan\n\nDear Hiring Team at ${company},\n\nI am applying for the ${position} position I found on ${src}. ${t.short}` + (motive ? ' ' + motive : '') + `\n\nMy CV and cover letter are attached, and my portfolio is at ${ME.portfolio}.` + (avail ? ' ' + avail : '') + ` I would be glad to discuss further.\n\nBest regards,\nMokhammad Afrizal Ramadhan\n${ME.phone} | ${ME.linkedin}`;
+    short = `Hi, I'm Afrizal. I just applied for the ${position} role at ${company} via ${src}. ${t.short} I'd be glad to discuss further if you're open to it. Thank you!`;
+  }
+  return { letter, email, short };
+}
+function letterText(l){ return [ME.name, ME.contact[S.lang], '', l.head, '', l.body.join('\n\n'), '', l.sign].join('\n'); }
+
+/* ================= RENDER ================= */
+function render(){
+  const out = build();
+  const missing = !val('company') || !val('position') || ($('source').value === 'other' && !val('sourceOther'));
+  $('missNote').textContent = '⚠️ Isi nama perusahaan, posisi, dan sumber lowongan dulu supaya tidak ada [placeholder] yang terkirim.';
+  $('missNote').classList.toggle('show', missing);
+
+  let html = '', meta = '', over = false;
+  if(S.out === 'letter'){
+    const l = out.letter;
+    html = `<div class="lh-name">${ME.name}</div><div class="lh-contact">${esc(ME.contact[S.lang])}</div><div class="lh-rule"></div>`
+         + `<div class="body">${esc(l.head)}\n\n${esc(l.body.join('\n\n'))}\n\n${esc(l.sign)}</div>`;
+    const w = words(l.body.join(' '));
+    over = w > 300;
+    meta = `${w} kata di isi surat${over ? ' · lebih dari 300 kata, pertimbangkan memangkas poin tambahan' : ' · ideal 150–300 kata'}`;
+  } else if(S.out === 'email'){
+    html = `<div class="body">${esc(out.email)}</div>`;
+    meta = `${words(out.email)} kata · lampirkan ${cvFile()} dan PDF surat lamaran`;
+  } else {
+    html = `<div class="body">${esc(out.short)}</div>`;
+    const c = out.short.length; over = c > 300;
+    meta = `${c} karakter${over ? ' · melebihi batas catatan koneksi LinkedIn (300)' : ' · muat di catatan koneksi LinkedIn (maks. 300)'}`;
+  }
+  $('paper').innerHTML = html;
+  $('meta').textContent = meta;
+  $('meta').classList.toggle('over', over);
+  $('pdfBtn').disabled = S.out !== 'letter';
+  $('attachLine').innerHTML = `Lampirkan: <code>${cvFile()}</code>`;
+  checkDup();
+}
+
+function buildCards(){
+  $('tplCards').innerHTML = V.map(v => `<button class="tpl ${v.id===S.variant?'on':''}" data-v="${v.id}"><div class="n">${v.name}</div><div class="d">${v.desc}</div></button>`).join('');
+  S.extras = S.extras.filter(id => id !== S.variant);
+  $('extras').innerHTML = '<label style="font-weight:600;color:var(--grey);font-size:.75rem;margin-bottom:2px;cursor:default">Poin tambahan dari varian lain (maks. 2, untuk lowongan campuran):</label>'
+    + V.filter(v => v.id !== S.variant).map(v =>
+      `<label><input type="checkbox" data-x="${v.id}" ${S.extras.includes(v.id)?'checked':''} ${!S.extras.includes(v.id) && S.extras.length>=2 ? 'disabled' : ''}> <span><b>${v.name}:</b> ${esc(txt(v).extra)}</span></label>`).join('');
+}
+
+/* ================= JD ANALYSIS ================= */
+function analyze(){
+  const jd = $('jobdesc').value.toLowerCase();
+  const note = $('suggestNote');
+  if(!jd.trim()){ note.textContent = 'Paste dulu deskripsi lowongannya.'; note.className = 'note warn show'; $('kwBox').style.display='none'; return; }
+  const hits = VOCAB.filter(([, re]) => re.test(jd));
+  const score = Object.fromEntries(V.map(v => [v.id, 0]));
+  hits.forEach(([, , vars]) => vars.forEach((id, i) => score[id] += i === 0 ? 2 : 1));
+  V.forEach(v => v.kw.forEach(k => { if(jd.includes(k)) score[v.id] += 3; }));
+  const ranked = V.map(v => [v.id, score[v.id]]).sort((a,b) => b[1]-a[1]);
+  if(ranked[0][1] === 0){ note.textContent = 'Tidak ada kata kunci yang cukup jelas. Pilih varian secara manual.'; note.className = 'note warn show'; }
+  else {
+    S.variant = ranked[0][0];
+    const second = ranked[1][1] >= ranked[0][1] * 0.6 && ranked[1][1] > 0 ? ranked[1][0] : null;
+    S.extras = second ? [second] : [];
+    note.textContent = `Disarankan: ${VBY[S.variant].name}` + (second ? `, dengan poin tambahan dari ${VBY[second].name}.` : '.');
+    note.className = 'note ok show';
+  }
+  buildCards(); render(); showKw(hits);
+}
+function showKw(hits){
+  if(!hits) hits = VOCAB.filter(([, re]) => re.test($('jobdesc').value.toLowerCase()));
+  if(!hits.length || !$('jobdesc').value.trim()){ $('kwBox').style.display='none'; return; }
+  const covered = new Set([S.variant, ...S.extras]);
+  $('kwChips').innerHTML = hits.map(([label, , vars]) => {
+    const cls = vars.some(v => covered.has(v)) ? 'have' : vars.length ? 'other' : 'none';
+    const tip = vars.length ? 'Ada di: ' + vars.map(v => VBY[v].name).join(', ') : 'Belum ada di CV mana pun';
+    return `<span class="chip ${cls}" title="${esc(tip)}">${esc(label)}</span>`;
+  }).join('');
+  $('kwBox').style.display = 'block';
+}
+
+/* ================= OUTPUT ACTIONS ================= */
+function status(msg){ $('status').textContent = msg; clearTimeout(status.t); status.t = setTimeout(() => $('status').textContent = '', 4000); }
+function currentText(){
+  const o = build();
+  return S.out === 'letter' ? letterText(o.letter) : S.out === 'email' ? o.email : o.short;
+}
+function copy(){
+  const t = currentText();
+  const done = () => status('✅ Tersalin ke clipboard.');
+  if(navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(t).then(done).catch(fallback); } else fallback();
+  function fallback(){
+    const ta = document.createElement('textarea'); ta.value = t; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); done(); }catch(e){ status('Gagal copy otomatis. Seleksi teks manual lalu Ctrl+C.'); }
+    ta.remove();
+  }
+}
+function pdfSafe(s){ return s.replace(/[—–]/g,'-').replace(/[“”]/g,'"').replace(/[‘’]/g,"'").replace(/→/g,'->').replace(/[•·]/g,'|'); }
+function savePdf(){
+  if(!window.jspdf){ status('Gagal memuat pustaka PDF. Pastikan internet aktif, lalu muat ulang halaman.'); return; }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit:'pt', format:'a4' });
+  const M = 60, W = doc.internal.pageSize.getWidth(), H = doc.internal.pageSize.getHeight(), maxW = W - M*2, LH = 15.5;
+  let y = M;
+  doc.setFont('helvetica','bold'); doc.setFontSize(17); doc.setTextColor(15,94,82);
+  doc.text(ME.name, M, y); y += 16;
+  doc.setFont('helvetica','normal'); doc.setFontSize(8.3); doc.setTextColor(102,117,113);
+  doc.splitTextToSize(pdfSafe(ME.contact[S.lang]), maxW).forEach(line => { doc.text(line, M, y); y += 11; });
+  y += 2; doc.setDrawColor(168,122,27); doc.setLineWidth(1.4); doc.line(M, y, W - M, y); y += 26;
+  doc.setFontSize(10.8); doc.setTextColor(20,35,31);
+  const l = build().letter;
+  const write = (block, gapAfter) => {
+    block.split('\n').forEach(par => {
+      if(!par.trim()){ y += LH; return; }
+      doc.splitTextToSize(pdfSafe(par), maxW).forEach(line => {
+        if(y > H - M){ doc.addPage(); y = M; }
+        doc.text(line, M, y); y += LH;
+      });
+    });
+    y += gapAfter;
+  };
+  write(l.head, LH);
+  l.body.forEach(p => write(p, 7));
+  y += 6; write(l.sign, 0);
+  const name = `Mokhammad Afrizal R (${val('company') || 'Perusahaan'} - ${val('position') || 'Posisi'})`.replace(/[\/\\:*?"<>|]/g,'-').replace(/\s+/g,' ').trim() + '.pdf';
+  doc.save(name);
+  status(`✅ Tersimpan sebagai "${name}"`);
+}
+
+/* ================= HISTORY ================= */
+const STATUSES = ['Terkirim','Dilihat','Interview','Tes','Ditolak','Diterima'];
+function hist(){ return store.get(HKEY, []); }
+function saveHist(h){ if(!store.set(HKEY, h)) status('⚠️ Browser tidak mengizinkan penyimpanan. Export CSV sebagai cadangan.'); }
+function logApp(){
+  if(!val('company') || !val('position')){ status('Isi nama perusahaan dan posisi dulu.'); return; }
+  const h = hist();
+  h.unshift({ id: Date.now(), date: $('date').value || todayISO(), company: val('company'), position: val('position'),
+              variant: S.variant, lang: S.lang.toUpperCase(), source: source(), status: 'Terkirim' });
+  saveHist(h); renderHist(); checkDup();
+  status('📝 Lamaran dicatat di riwayat.');
+}
+function renderHist(){
+  const h = hist();
+  $('histCount').textContent = h.length ? `(${h.length})` : '';
+  if(!h.length){ $('histTable').innerHTML = '<tr><td class="empty">Belum ada lamaran tercatat.</td></tr>'; return; }
+  $('histTable').innerHTML = '<tr><th>Tanggal</th><th>Perusahaan</th><th>Posisi</th><th>CV</th><th>Sumber</th><th>Status</th><th></th></tr>'
+    + h.map(r => `<tr><td>${esc(r.date)}</td><td>${esc(r.company)}</td><td>${esc(r.position)}</td><td>${esc(r.variant)} ${esc(r.lang)}</td><td>${esc(r.source)}</td>
+      <td><select data-sid="${r.id}">${STATUSES.map(s => `<option ${s===r.status?'selected':''}>${s}</option>`).join('')}</select></td>
+      <td><button class="x" data-del="${r.id}" title="Hapus">✕</button></td></tr>`).join('');
+}
+function checkDup(){
+  const c = val('company').toLowerCase(); const n = $('dupNote');
+  if(c.length < 3){ n.classList.remove('show'); return; }
+  const prev = hist().filter(r => r.company.toLowerCase() === c);
+  if(prev.length){
+    n.textContent = `Kamu sudah pernah melamar ke ${val('company')}: ` + prev.map(r => `${r.position} (${r.date}, CV ${r.variant}, ${r.status})`).join('; ') + '. Pastikan CV yang dikirim konsisten.';
+    n.classList.add('show');
+  } else n.classList.remove('show');
+}
+function csvCell(s){ s = String(s ?? ''); return /[",\n]/.test(s) ? '"' + s.replace(/"/g,'""') + '"' : s; }
+function exportCsv(){
+  const h = hist(); if(!h.length){ status('Riwayat masih kosong.'); return; }
+  const cols = ['date','company','position','variant','lang','source','status'];
+  const csv = [cols.join(',')].concat(h.map(r => cols.map(k => csvCell(r[k])).join(','))).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['﻿' + csv], {type:'text/csv;charset=utf-8'}));
+  a.download = `riwayat_lamaran_${todayISO()}.csv`; a.click(); URL.revokeObjectURL(a.href);
+}
+function parseCsv(text){
+  const rows = []; let row = [], cell = '', q = false;
+  for(let i = 0; i < text.length; i++){
+    const ch = text[i];
+    if(q){ if(ch === '"' && text[i+1] === '"'){ cell += '"'; i++; } else if(ch === '"') q = false; else cell += ch; }
+    else if(ch === '"') q = true;
+    else if(ch === ','){ row.push(cell); cell = ''; }
+    else if(ch === '\n' || ch === '\r'){ if(ch === '\r' && text[i+1] === '\n') i++; row.push(cell); rows.push(row); row = []; cell = ''; }
+    else cell += ch;
+  }
+  if(cell || row.length){ row.push(cell); rows.push(row); }
+  return rows.filter(r => r.some(c => c.trim()));
+}
+function importCsv(file){
+  const rd = new FileReader();
+  rd.onload = () => {
+    const rows = parseCsv(String(rd.result).replace(/^﻿/, ''));
+    const head = rows.shift() || []; const ix = k => head.indexOf(k);
+    if(ix('company') < 0){ status('Format CSV tidak dikenali. Gunakan file hasil Export.'); return; }
+    const h = hist(); const key = r => [r.date, r.company, r.position].join('|').toLowerCase();
+    const have = new Set(h.map(key)); let added = 0;
+    rows.forEach((r, i) => {
+      const o = { id: Date.now() + i, date:r[ix('date')]||'', company:r[ix('company')]||'', position:r[ix('position')]||'',
+                  variant:r[ix('variant')]||'', lang:r[ix('lang')]||'', source:r[ix('source')]||'', status:r[ix('status')]||'Terkirim' };
+      if(o.company && !have.has(key(o))){ h.push(o); have.add(key(o)); added++; }
+    });
+    h.sort((a,b) => (b.date||'').localeCompare(a.date||''));
+    saveHist(h); renderHist(); checkDup(); status(`✅ ${added} lamaran diimpor.`);
+  };
+  rd.readAsText(file);
+}
+
+/* ================= EVENTS ================= */
+['company','position','sourceOther','date','motive','avail'].forEach(id => $(id).addEventListener('input', render));
+$('avail').addEventListener('change', render);
+$('source').addEventListener('change', () => { $('sourceOther').style.display = $('source').value === 'other' ? 'block' : 'none'; render(); });
+$('analyzeBtn').addEventListener('click', analyze);
+$('tplCards').addEventListener('click', e => { const b = e.target.closest('[data-v]'); if(!b) return; S.variant = b.dataset.v; buildCards(); render(); showKw(); });
+$('extras').addEventListener('change', e => {
+  const id = e.target.dataset.x; if(!id) return;
+  S.extras = e.target.checked ? [...S.extras, id].slice(0,2) : S.extras.filter(x => x !== id);
+  buildCards(); render(); showKw();
+});
+$('outTabs').addEventListener('click', e => { const b = e.target.closest('[data-out]'); if(!b) return; S.out = b.dataset.out;
+  [...$('outTabs').children].forEach(x => x.classList.toggle('on', x === b)); render(); });
+$('langTabs').addEventListener('click', e => { const b = e.target.closest('[data-lang]'); if(!b) return; S.lang = b.dataset.lang;
+  [...$('langTabs').children].forEach(x => x.classList.toggle('on', x === b)); buildCards(); render(); });
+$('copyBtn').addEventListener('click', copy);
+$('pdfBtn').addEventListener('click', savePdf);
+$('logBtn').addEventListener('click', logApp);
+$('exportBtn').addEventListener('click', exportCsv);
+$('importFile').addEventListener('change', e => { if(e.target.files[0]) importCsv(e.target.files[0]); e.target.value = ''; });
+$('histTable').addEventListener('change', e => { const id = e.target.dataset.sid; if(!id) return;
+  const h = hist(); const r = h.find(x => String(x.id) === id); if(r){ r.status = e.target.value; saveHist(h); checkDup(); } });
+$('histTable').addEventListener('click', e => { const id = e.target.dataset.del; if(!id) return;
+  if(!confirm('Hapus lamaran ini dari riwayat?')) return;
+  saveHist(hist().filter(x => String(x.id) !== id)); renderHist(); checkDup(); });
+$('resetBtn').addEventListener('click', () => {
+  ['company','position','sourceOther','motive','jobdesc'].forEach(id => $(id).value = '');
+  $('source').selectedIndex = 0; $('sourceOther').style.display = 'none'; $('avail').value = 'relocate'; $('date').value = todayISO();
+  $('suggestNote').classList.remove('show'); $('kwBox').style.display = 'none';
+  S.variant = 'Utama'; S.extras = []; buildCards(); render();
+});
+
+$('date').value = todayISO();
+buildCards(); render(); renderHist();
+</script>
+</body>
+</html>
