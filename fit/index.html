@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#102a43">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Fit Health">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<title>Fit & Men's Health Tracker</title>
+<style>
+:root{--navy:#102a43;--blue:#176b87;--mint:#d8f3e8;--bg:#f3f6f8;--card:#fff;--ink:#172b4d;--muted:#62748a;--line:#e4eaf0;--gold:#d7a84b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink)}
+header{background:linear-gradient(135deg,#102a43,#176b87);color:#fff;padding:24px 18px 28px;border-radius:0 0 24px 24px}
+header .eyebrow{opacity:.8;font-size:12px;letter-spacing:.12em;text-transform:uppercase}h1{font-size:25px;margin:6px 0}header p{margin:4px 0 0;opacity:.88}
+main{max-width:900px;margin:auto;padding:14px 14px 90px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px;box-shadow:0 3px 12px #102a4308;margin-bottom:12px}.metric{font-size:25px;font-weight:750;color:var(--navy)}.muted{color:var(--muted);font-size:12px}.section{font-size:18px;margin:20px 2px 10px}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.pill{display:inline-block;border-radius:99px;padding:4px 9px;background:#e8f4f7;color:#176b87;font-size:11px;font-weight:700}.progress{height:9px;background:#e8edf2;border-radius:99px;overflow:hidden;margin:10px 0}.progress>i{display:block;height:100%;background:#15966b;width:0%;transition:.2s}
+button,input,select{font:inherit}button{border:0;border-radius:11px;padding:10px 13px;background:var(--navy);color:white;font-weight:650;cursor:pointer}button.secondary{background:#edf3f6;color:var(--navy)}button.small{padding:7px 10px;font-size:13px}input,select{border:1px solid var(--line);border-radius:10px;padding:9px;background:white;color:var(--ink);max-width:100%}
+.task{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}.task:last-child{border:0}.task input{width:19px;height:19px;accent-color:#15966b;margin-top:2px}.task label{flex:1}.task small{display:block;color:var(--muted);font-size:12px}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.day{background:#f0f4f7;border-radius:9px;padding:8px 3px;text-align:center;font-size:11px}.day b{display:block;font-size:14px}.day.active{background:var(--mint);color:#126044}
+.exercise{display:grid;grid-template-columns:104px 1fr;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.exercise img{width:104px;height:82px;object-fit:cover;border-radius:10px}.exercise:last-child{border:0}
+canvas{width:100%;height:190px;display:block}.waterrow{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}.drop{width:35px;height:35px;border-radius:50%;background:#e8f0f6;color:#176b87;padding:0}.drop.done{background:#176b87;color:#fff}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom));z-index:3}nav a{color:var(--muted);text-decoration:none;font-size:11px;text-align:center}
+.note{background:#fff8e8;border:1px solid #f2dfb7;border-radius:12px;padding:12px;font-size:13px}.good{background:#edf8f2;border-color:#c8ead7}
+.hidden{display:none}.formrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.formrow>*{flex:1;min-width:110px}.foot{font-size:11px;color:var(--muted);margin-top:15px}
+@media(min-width:700px){main{padding-top:20px}.grid.three{grid-template-columns:repeat(3,1fr)}}
+
+#lockScreen{position:fixed;inset:0;background:linear-gradient(145deg,#102a43,#176b87);z-index:99;display:flex;align-items:center;justify-content:center;padding:20px}
+#lockScreen .lockbox{background:#fff;color:#172b4d;border-radius:20px;padding:24px;width:min(100%,360px);box-shadow:0 15px 50px #0003}
+#lockScreen input{width:100%;margin:12px 0}
+.measure-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.measure-table th,.measure-table td{border-bottom:1px solid var(--line);padding:8px 5px;text-align:left}
+
+.timerbox{background:#edf5f8;border-radius:14px;padding:18px;text-align:center;margin:12px 0}
+.timerbig{font-size:38px;font-weight:800;color:#102a43}
+.phase{font-size:18px;font-weight:700;color:#176b87}
+
+body{background:linear-gradient(180deg,#e8f0f5 0,#f5f7fa 250px)}
+header{padding:28px 20px 34px;border-radius:0 0 28px 28px;background:radial-gradient(circle at 85% 15%,#3a91a6 0,transparent 34%),linear-gradient(135deg,#0b2239,#176b87);box-shadow:0 12px 30px #102a4322}
+header h1{font-size:clamp(25px,5vw,34px)}
+main{max-width:980px;padding:18px 15px 110px}
+.section{font-size:20px;font-weight:800}
+.card{border:1px solid #e5ebf1;border-radius:20px;padding:17px;box-shadow:0 8px 24px #183b5610}
+button{border-radius:13px;padding:11px 15px}
+input,select,textarea{border-radius:12px;min-height:42px;width:100%;padding:9px;border:1px solid var(--line);font:inherit;color:var(--ink)}
+nav{justify-content:flex-start;gap:4px;overflow-x:auto;box-shadow:0 -8px 24px #102a4310}
+nav a{flex:0 0 auto;min-width:56px;padding:5px 7px;border-radius:12px;font-weight:650}
+.timerbox{background:linear-gradient(145deg,#e8f4f8,#f2f8fb);border:1px solid #d8e9ef;border-radius:20px;padding:22px 15px}
+.timerbig{font-size:clamp(48px,12vw,68px);line-height:1.1}
+.calendar-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.cal-dow{text-align:center;color:var(--muted);font-size:11px;font-weight:700;padding:5px 0}
+.cal-day{min-height:56px;border:1px solid #e8edf2;border-radius:12px;background:#fff;padding:6px 3px;text-align:center;color:var(--ink);box-shadow:none;font-size:12px}
+.cal-day .num{display:block;font-size:13px;font-weight:750}
+.cal-day.today{border:2px solid #176b87;background:#eff8fb}
+.cal-day.selected{background:#102a43;color:#fff;border-color:#102a43}
+.cal-day .dot{display:block;font-size:10px;color:#15966b;margin-top:3px}
+.cal-day.out{opacity:.35}
+.calendar-detail{background:#f5f8fa;border-radius:14px;padding:13px;margin-top:12px}
+.phasebar{height:8px;background:#dce8ee;border-radius:99px;overflow:hidden;margin-top:14px}
+.phasebar span{display:block;height:100%;width:0;background:#15966b}
+.kegel-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.exercise-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.exercise-tile{background:#f7f9fb;border:1px solid #e7edf2;border-radius:15px;padding:13px}
+@media(max-width:420px){.card{padding:14px}.cal-day{min-height:50px}.calendar-grid{gap:3px}}
+
+
+
+</style>
+</head>
+<body>
+<div id="lockScreen"><div class="lockbox">
+<div style="font-size:28px">🔐</div><h2 style="margin:8px 0">Fit & Men's Health</h2>
+<p class="muted">Masukkan password untuk membuka tracker.</p>
+<input id="appPass" type="password" inputmode="numeric" maxlength="12" placeholder="Password" autocomplete="off">
+<button style="width:100%" onclick="unlockApp()">Buka aplikasi</button>
+<p id="passError" style="color:#b42318;font-size:12px"></p>
+<p class="muted">Kunci sederhana di perangkat ini, bukan enkripsi atau perlindungan kuat.</p>
+</div></div>
+<header><div class="eyebrow">Personal dashboard · versi awal</div><h1>Fit & Men's Health</h1><p>Turun berat badan, lebih bugar, dan jaga kesehatan seksual dengan aman.</p></header>
+<main>
+<section id="home">
+ <div class="section">Ringkasan hari ini</div>
+ <div class="card" id="setupCard"><b>Pengukuran awal pertama</b><p class="muted">Timbang pagi hari setelah ke toilet, sebelum sarapan, dengan pakaian ringan. Masukkan angka aktualmu untuk memulai grafik dan menghitung target.</p><div class="formrow"><input id="initialWeight" type="number" step=".1" min="30" max="300" placeholder="Berat awal (kg)"><button onclick="setInitialWeight()">Mulai tracking</button></div><div id="idealPreview" class="muted" style="margin-top:8px">Tinggi profil: 170 cm. Berat sehat berdasarkan BMI 18,5–24,9 akan dihitung setelah pengukuran.</div></div>
+ <div class="card" id="idealCard"><b>Berat & target sehat</b><div class="grid"><div><div class="muted">Rentang berat BMI sehat</div><div class="metric" id="idealRange">53,5–72,0 kg</div></div><div><div class="muted">Target tahap pertama</div><div class="metric" id="firstTarget">—</div></div></div><p id="goalText" class="muted">Target awal bertahap: turun 5% dari berat awal. Target akhir dibahas bertahap, bukan dikejar sekaligus.</p><div class="progress"><i id="goalBar"></i></div><div class="muted" id="goalPercent">Catat berat awal untuk melihat progres.</div></div>
+
+ <div class="grid">
+  <div class="card"><div class="muted">Berat terakhir</div><div class="metric" id="weightMetric">94 kg</div><div class="muted">Target awal: turun 5% ≈ 89,3 kg</div></div>
+  <div class="card"><div class="muted">BMI perkiraan</div><div class="metric">32,5</div><div class="muted">Indikator skrining, bukan diagnosis</div></div>
+  <div class="card"><div class="muted">Checklist selesai</div><div class="metric" id="taskMetric">0/0</div><div class="progress"><i id="taskBar"></i></div></div>
+  <div class="card"><div class="muted">Air hari ini</div><div class="metric" id="waterMetric">0 / 8 gelas</div><div class="muted">1 gelas = 250 ml · target dapat diubah</div></div>
+ </div>
+ <div class="card"><div class="row"><b>Checklist harian</b><span class="pill" id="todayLabel"></span></div><div id="tasks"></div><button class="secondary small" onclick="resetTasks()">Reset checklist hari ini</button></div>
+ <div class="card"><b>Ringkasan 7 hari terakhir</b><div class="grid three" style="margin-top:10px"><div><div class="metric" id="weeklySessions">0</div><div class="muted">Sesi latihan</div></div><div><div class="metric" id="weeklyMinutes">0</div><div class="muted">Menit olahraga</div></div><div><div class="metric" id="weeklyKm">0</div><div class="muted">Km tercatat</div></div></div></div>
+ <div class="card"><b>Rencana gerak mingguan</b><p class="muted">Mulai bertahap. Jalan bisa dibagi menjadi sesi 10–15 menit.</p><div class="days" id="week"></div></div>
+
+ <div class="card"><b>Rutinitas hari kerja yang disarankan</b>
+ <div class="task"><span>05.45</span><label><b>Bangun, ke toilet, minum sesuai haus</b><small>Mulai hari tanpa terburu-buru.</small></label></div>
+ <div class="task"><span>06.00</span><label><b>Olahraga ringan 20–30 menit</b><small>Jalan cepat atau latihan sesuai jadwal. Mulai bertahap.</small></label></div>
+ <div class="task"><span>06.30</span><label><b>Pendinginan dan mandi</b><small>Siapkan diri untuk berangkat kerja.</small></label></div>
+ <div class="task"><span>07.00</span><label><b>Sarapan dan persiapan</b><small>Protein, buah/sayur, dan karbohidrat secukupnya.</small></label></div>
+ <div class="task"><span>08.00–17.00</span><label><b>Jam kantor</b><small>Berdiri/berjalan 2–5 menit tiap 30–60 menit; makan siang dan minum sesuai kebutuhan.</small></label></div>
+ <div class="task"><span>17.30–19.00</span><label><b>Pulang, makan malam, waktu keluarga</b><small>Jika olahraga pagi terlewat, jalan santai setelah pulang bisa jadi alternatif.</small></label></div>
+ <div class="task"><span>21.15</span><label><b>Mulai tenang dan kurangi layar</b><small>Siapkan kebutuhan besok.</small></label></div>
+ <div class="task"><span>22.00</span><label><b>Tidur</b><small>Target 7 jam 45 menit hingga bangun 05.45.</small></label></div>
+ </div>
+ <div class="note"><b>Catatan penting:</b> olahraga dan penurunan lemak dapat mendukung kesehatan ereksi dan membuat lebih banyak batang penis terlihat jika lemak di pangkal berkurang. Olahraga tidak terbukti memperbesar jaringan penis secara permanen.</div>
+</section>
+<section id="workout" class="hidden">
+ <div class="section">Rencana latihan</div>
+ <div class="card">
+  <b>Rencana awal 4 minggu</b>
+  <p class="muted">Mulai bertahap. Gunakan kettlebell dengan beban yang bisa dikendalikan dan sepatu yang nyaman untuk berjalan. Sisipkan pemanasan dan pendinginan.</p>
+  <div class="note good"><b>Perlengkapan di rumah</b><p>Kettlebell untuk latihan kekuatan dan sepatu untuk jalan cepat atau jogging bertahap. Tidak perlu memaksakan lari di awal.</p></div>
+  <div class="task"><b>Senin</b><label><b>Latihan kekuatan</b><small>Latihan kettlebell ringan, fokus teknik.</small></label></div>
+  <div class="task"><b>Selasa</b><label><b>Jalan cepat</b><small>20–30 menit dengan tempo yang masih memungkinkan bicara.</small></label></div>
+  <div class="task"><b>Rabu</b><label><b>Latihan kekuatan</b><small>Sesi ringan, beri jeda jika otot masih pegal.</small></label></div>
+  <div class="task"><b>Kamis</b><label><b>Pemulihan aktif</b><small>Jalan santai dan peregangan ringan.</small></label></div>
+  <div class="task"><b>Jumat</b><label><b>Latihan kekuatan</b><small>Latihan kettlebell ringan, tanpa mengejar beban berat.</small></label></div>
+  <div class="task"><b>Sabtu</b><label><b>Jalan lebih lama</b><small>25–35 menit. Tambahkan interval jogging hanya jika sudah nyaman.</small></label></div>
+  <div class="task"><b>Minggu</b><label><b>Istirahat</b><small>Pemulihan dan tidur cukup.</small></label></div>
+  <p class="muted">Ini jadwal awal yang fleksibel. Hentikan latihan jika muncul nyeri tajam, pusing, atau sesak yang tidak biasa.</p>
+ </div>
+
+ <div class="section">Catatan latihan</div>
+ <div class="card">
+  <b>Tambah sesi olahraga</b>
+  <div class="formrow" style="margin-top:10px">
+   <label>Tanggal<input type="date" id="workDate"></label>
+   <label>Jenis latihan<select id="workType"><option>Jalan kaki</option><option>Jogging</option><option>Jalan + jogging</option><option>Kettlebell</option><option>Latihan kekuatan lain</option><option>Peregangan</option></select></label>
+  </div>
+  <div class="formrow">
+   <label>Durasi (menit)<input type="number" id="workDuration" min="1" max="600" placeholder="30"></label>
+   <label>Jarak (km, opsional)<input type="number" id="workDistance" min="0" step=".1" placeholder="2.5"></label>
+  </div>
+  <div class="formrow">
+   <label>Beban kettlebell (kg)<input type="number" id="workLoad" min="0" step=".5" placeholder="Opsional"></label>
+   <label>Set<input type="number" id="workSets" min="0" max="50" placeholder="3"></label>
+   <label>Repetisi/set<input type="number" id="workReps" min="0" max="100" placeholder="10"></label>
+  </div>
+  <label>Catatan<textarea id="workNotes" rows="2" placeholder="Contoh: terasa ringan, teknik masih dilatih"></textarea></label>
+  <button style="margin-top:10px" onclick="saveWorkout()">Simpan sesi latihan</button>
+ </div>
+ <div class="card"><div class="row"><b>Riwayat latihan</b><span class="pill" id="workoutTotal">0 sesi</span></div><div id="workoutHistory" class="muted">Belum ada sesi tercatat.</div></div>
+</section>
+
+<section id="calendar" class="hidden">
+ <div class="section">Kalender aktivitas</div>
+ <div class="card">
+  <div class="calendar-head"><button class="secondary small" onclick="changeMonth(-1)">‹</button><b id="calendarTitle">Bulan Tahun</b><button class="secondary small" onclick="changeMonth(1)">›</button></div>
+  <div class="calendar-grid" id="calendarGrid" style="margin-top:12px"></div>
+  <div class="muted" style="margin-top:10px">Titik hijau menandakan aktivitas tercatat. Pilih tanggal untuk melihat ringkasan.</div>
+  <div class="calendar-detail" id="calendarDetail">Pilih tanggal pada kalender.</div>
+ </div>
+ <div class="card"><b>Rencana mingguan</b><div id="calendarPlan"></div></div>
+</section>
+
+<section id="water" class="hidden">
+ <div class="section">Pengingat minum</div>
+ <div class="card"><div class="row"><b>Catatan air hari ini</b><span id="waterText" class="pill">0 ml</span></div><div class="waterrow" id="drops"></div><div class="formrow"><button onclick="addWater(1)">+ 1 gelas (250 ml)</button><button class="secondary" onclick="addWater(-1)">− 1 gelas</button></div><p class="muted">Target awal 8 gelas (2 liter) sebagai pengingat praktis, bukan kebutuhan medis universal. Sesuaikan dengan cuaca, keringat, aktivitas, dan anjuran dokter. Tidak perlu memaksa minum; ikuti rasa haus dan warna urine kuning pucat.</p></div>
+ <div class="card"><b>Jadwal pengingat default</b><p class="muted">09.00 · 10.30 · 12.00 · 13.30 · 15.00 · 16.30 · 19.00 · 20.30</p><p class="muted">Bisa diubah di Pengaturan. Notifikasi memerlukan izin browser dan aplikasi terbuka. Browser dapat membatasi notifikasi jika tab ditutup atau HP menghemat baterai.</p><button onclick="enableNotifications()">Aktifkan izin notifikasi</button><span id="notifStatus" class="muted"></span></div>
+</section>
+<section id="progress" class="hidden">
+ <div class="section">Grafik perkembangan</div>
+ <div class="card"><b>Catat berat badan</b><div class="formrow" style="margin-top:10px"><input id="weightInput" type="number" step=".1" min="30" max="300" placeholder="Berat kg"><button onclick="saveWeight()">Simpan</button></div><p class="muted">Timbang pada kondisi serupa, misalnya pagi setelah ke toilet. Jangan terpaku pada fluktuasi harian.</p></div>
+ <div class="card"><b>Grafik berat badan</b><canvas id="chart" width="700" height="260"></canvas><div id="weightHistory" class="muted"></div></div>
+ <div class="card"><b>Target awal</b><div class="metric">89,3 kg</div><p class="muted">Milestone pertama: turun sekitar 5% dari 94 kg. Setelah tercapai, evaluasi target berikutnya bersama tenaga kesehatan.</p></div>
+</section>
+
+<section id="measurements" class="hidden">
+ <div class="section">Catatan ukuran penis</div>
+ <div class="note"><b>Privasi:</b> catatan disimpan di local storage browser pada perangkat ini. Password aplikasi hanya penghalang sederhana dan tidak mengenkripsi file atau data.</div>
+ <div class="card"><b>Catat pengukuran</b>
+ <p class="muted">Ukur dengan lembut, tanpa menarik atau menekan jaringan. Gunakan metode yang sama setiap kali. Hentikan jika terasa nyeri atau iritasi.</p>
+ <div class="formrow"><label>Tanggal <input id="measureDate" type="date"></label><label>Panjang ereksi (cm) <input id="measureLength" type="number" min="1" max="30" step=".1" placeholder="Opsional"></label></div>
+ <div class="formrow" style="margin-top:8px"><label>Diameter/lebar batang (cm) <input id="measureDiameter" type="number" min=".5" max="10" step=".1" placeholder="Opsional"></label><label>Lingkar batang (cm) <input id="measureGirth" type="number" min="1" max="30" step=".1" placeholder="Opsional"></label></div>
+ <p class="muted">Diameter adalah jarak lurus dari satu sisi ke sisi seberang. Lingkar adalah keliling mengelilingi batang. Keduanya berbeda; lingkar biasanya lebih berguna untuk membandingkan ketebalan.</p>
+ <label style="display:block;margin-top:8px">Catatan (opsional) <input id="measureNote" type="text" maxlength="120" placeholder="Misalnya kondisi pengukuran"></label>
+ <button style="margin-top:12px" onclick="saveMeasurement()">Simpan pengukuran</button></div>
+ <div class="card"><b>Riwayat pengukuran</b><div id="measurementHistory" class="muted">Belum ada catatan.</div></div>
+ <div class="card"><b>Grafik panjang</b><canvas id="lengthChart" width="700" height="230"></canvas></div>
+ <div class="card"><b>Grafik diameter</b><canvas id="diameterChart" width="700" height="230"></canvas></div>
+</section>
+
+<section id="kegel" class="hidden">
+ <div class="section">Kesehatan otot dasar panggul pria</div>
+ <div class="note"><b>Tujuan:</b> latihan otot dasar panggul dapat membantu kontrol berkemih dan pada sebagian pria mendukung fungsi seksual. Kegel tidak memperbesar atau memperpanjang penis.</div>
+ <div class="card">
+  <b>Panduan Kegel pemula</b>
+  <p class="muted">Mulai hanya jika tidak ada nyeri panggul, rasa tegang, atau keluhan berkemih. Jika pernah mengalami gejala tersebut, konsultasikan dahulu dengan dokter atau fisioterapis pelvic floor.</p>
+  <ol>
+   <li><b>Temukan ototnya:</b> bayangkan menahan kentut. Otot dasar panggul terasa mengencang dan sedikit terangkat.</li>
+   <li><b>Posisi:</b> berbaring atau duduk nyaman, bernapas normal.</li>
+   <li><b>Kontraksi lembut:</b> kencangkan 3 detik, jangan menahan napas atau mengencangkan bokong/perut.</li>
+   <li><b>Relaksasi penuh:</b> lepaskan selama 5 detik. Pastikan otot benar-benar rileks.</li>
+   <li><b>Ulangi:</b> 8–10 kali, satu sesi sehari dahulu.</li>
+  </ol>
+  <p class="muted">Jangan berlatih dengan menghentikan aliran urine secara rutin. Jika muncul nyeri, rasa berat, atau gejala memburuk, hentikan.</p>
+ </div>
+ <div class="card">
+  <b>Timer latihan Kegel</b>
+  <div class="timerbox"><div class="phase" id="kegelPhase">SIAP?</div><div class="timerbig" id="kegelCount">3</div><div class="muted" id="kegelRound">Repetisi 0 dari 8 · tahan 3 detik / lepas 5 detik</div><div class="phasebar"><span id="kegelProgress"></span></div></div>
+  <div class="kegel-actions"><button onclick="startKegel()">▶ Mulai sesi</button><button class="secondary" onclick="stopKegel()">■ Berhenti</button></div>
+  <p class="muted" id="kegelStatus">8 repetisi. Setiap repetisi: tahan 3 detik, lalu lepas 5 detik. Timer memberi bunyi pendek saat fase berganti.</p>
+ </div>
+ <div class="card">
+  <b>Catatan sesi Kegel</b>
+  <div class="task"><input type="checkbox" id="kegelDone" onchange="saveKegelDone(this.checked)"><label for="kegelDone"><b>Sesi hari ini selesai</b><small>Centang setelah menyelesaikan latihan tanpa nyeri atau ketegangan.</small></label></div>
+  <div class="muted" id="kegelStreak">Belum ada sesi tercatat hari ini.</div>
+ </div>
+ <div class="card">
+  <b>Video latihan umum: Nike Training Club</b>
+  <p class="muted">Gunakan Nike Training Club untuk melihat video gerakan kardio, kekuatan, dan mobilitas. Pilih latihan pemula, low-impact, dan tanpa alat sesuai kemampuan. Tracker ini tetap menjadi tempat mencatat progresmu.</p>
+  <a href="https://play.google.com/store/apps/details?id=com.nike.ntc" target="_blank" rel="noopener"><button> Buka Nike Training Club di Google Play </button></a>
+ </div>
+</section>
+<section id="settings" class="hidden">
+ <div class="section">Pengaturan & keamanan</div>
+ <div class="card"><b>Pengaturan pengingat</b><p class="muted">Interval pengingat minum selama aplikasi terbuka.</p><div class="formrow"><label>Mulai <input type="time" id="startTime" value="09:00"></label><label>Selesai <input type="time" id="endTime" value="20:30"></label><label>Interval <select id="interval"><option value="60">60 menit</option><option value="90" selected>90 menit</option><option value="120">120 menit</option></select></label></div><div style="margin-top:10px"><label>Target gelas per hari <input type="number" id="waterGoal" min="4" max="16" value="8"></label></div><button style="margin-top:10px" onclick="saveSettings()">Simpan pengaturan</button></div>
+ <div class="card"><b>Keamanan kesehatan seksual</b><ul><li>Program ini mendukung kebugaran dan kesehatan ereksi, bukan pembesaran penis permanen.</li><li>Karena pernah mengalami iritasi dan pembengkakan, jangan gunakan Pro Extender, pump, jelqing, beban, atau ramuan oles sebelum diperiksa dokter urologi.</li><li>Jika ada nyeri, kebas, memar, bengkak, perubahan warna, atau perubahan bentuk, hentikan alat dan periksa medis.</li><li>Penurunan berat badan dan aktivitas fisik dapat membantu fungsi ereksi pada sebagian orang, tetapi bukan jaminan.</li></ul></div>
+ <div class="card"><b>Data aplikasi</b><p class="muted">Data tersimpan di browser/perangkat ini (local storage). Ekspor cadangan sebelum menghapus data browser.</p><button class="secondary" onclick="exportData()">Ekspor data JSON</button>
+ <label class="secondary" style="display:inline-block;padding:10px 13px;border-radius:11px;cursor:pointer">Impor backup JSON<input type="file" id="importFile" accept="application/json,.json" onchange="importData(event)" style="display:none"></label>
+ <button class="secondary" onclick="clearData()">Hapus semua data</button></div>
+</section>
+<p class="foot">Panduan umum, bukan diagnosis atau pengganti konsultasi dokter. Jika memiliki penyakit jantung/ginjal, diabetes, tekanan darah tidak terkontrol, cedera sendi, atau pembatasan cairan, minta arahan tenaga kesehatan sebelum mengikuti program.</p>
+</main>
+<nav><a href="#" onclick="show('home')">🏠<br>Home</a><a href="#" onclick="show('workout')">🏃<br>Latihan</a><a href="#" onclick="show('calendar')">🗓️<br>Kalender</a><a href="#" onclick="show('water')">💧<br>Minum</a><a href="#" onclick="show('progress')">📈<br>Grafik</a><a href="#" onclick="show('measurements')">📏<br>Ukuran</a><a href="#" onclick="show('kegel')">🧘<br>Kegel</a><a href="#" onclick="show('settings')">⚙️<br>Setelan</a></nav>
+<script>
+const $=id=>document.getElementById(id), today=()=>{let d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10)};
+let data=JSON.parse(localStorage.getItem('fitHealthV1')||'{}');
+data.weights=data.weights||[];data.water=data.water||{};data.tasks=data.tasks||{};data.workouts=data.workouts||[];data.settings=data.settings||{start:'09:00',end:'20:30',interval:90,goal:8};
+const taskList=[['Pagi','Minum air setelah bangun','Jalan ringan atau aktivitas pagi'],['Kantor','Berdiri dan bergerak tiap 30–60 menit','Jalan singkat saat istirahat'],['Makan','Makan teratur dengan sayur dan protein','Batasi minuman manis'],['Sore','Selesaikan latihan sesuai jadwal','Mulai ringan, tambah bertahap'],['Malam','Catat air dan aktivitas','Tidur cukup 7–9 jam']];
+function save(){localStorage.setItem('fitHealthV1',JSON.stringify(data))}
+function show(id){document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));$(id).classList.remove('hidden');document.querySelector('main').scrollIntoView({behavior:'smooth'});if(id==='progress')drawChart();if(id==='calendar')renderCalendar()}
+
+function bmi(kg){return kg/Math.pow(1.70,2)}
+function kgFmt(x){return x.toLocaleString('id-ID',{minimumFractionDigits:1,maximumFractionDigits:1})+' kg'}
+function setInitialWeight(){
+ let v=parseFloat($('initialWeight').value);
+ if(!v||v<30||v>300){alert('Masukkan berat badan yang valid.');return}
+ data.weights=[{date:today(),kg:v}];data.baseline=v;data.setupDone=true;save();renderWeight();renderMeasurements();updateIdeal();$('kegelDone').checked=!!(data.kegelDone&&data.kegelDone[today()]);$('kegelStreak').textContent=$('kegelDone').checked?'Sesi Kegel tercatat hari ini.':'Belum ada sesi tercatat hari ini.';$('setupCard').classList.add('hidden');
+}
+function updateIdeal(){
+ let current=data.weights.length?data.weights[data.weights.length-1].kg:null;
+ let rangeLow=18.5*1.70*1.70,rangeHigh=24.9*1.70*1.70;
+ $('idealRange').textContent=kgFmt(rangeLow).replace(' kg','')+'–'+kgFmt(rangeHigh);
+ if(!current){$('firstTarget').textContent='Belum dihitung';$('goalPercent').textContent='Masukkan berat awal terlebih dahulu.';return}
+ let base=data.baseline||current, first=base*.95, total=base- first, lost=Math.max(0,base-current), pct=total>0?Math.min(100,lost/total*100):100;
+ $('firstTarget').textContent=kgFmt(first);
+ $('goalText').textContent='Berat terakhir '+kgFmt(current)+'. Target tahap pertama: turun 5% dari berat awal ('+kgFmt(base)+'). Rentang BMI sehat untuk tinggi 170 cm adalah sekitar '+kgFmt(rangeLow)+'–'+kgFmt(rangeHigh)+'.';
+ $('goalBar').style.width=pct+'%';$('goalPercent').textContent=Math.round(pct)+'% menuju milestone pertama (turun 5%). Target jangka panjang dievaluasi bertahap bersama tenaga kesehatan.';
+}
+function renderTasks(){let done=data.tasks[today()]||[];$('todayLabel').textContent=new Date().toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'short'});$('tasks').innerHTML=taskList.map((t,i)=>`<div class="task"><input type="checkbox" id="t${i}" ${done.includes(i)?'checked':''} onchange="toggleTask(${i},this.checked)"><label for="t${i}"><b>${t[1]}</b><small>${t[2]}</small></label></div>`).join('');let n=done.length,total=taskList.length;$('taskMetric').textContent=n+'/'+total;$('taskBar').style.width=(n/total*100)+'%'}
+function toggleTask(i,v){let a=data.tasks[today()]||[];data.tasks[today()]=v?[...new Set([...a,i])]:a.filter(x=>x!==i);save();renderTasks()}
+function resetTasks(){data.tasks[today()]=[];save();renderTasks()}
+function getWater(){return data.water[today()]||0}
+function renderWater(){let n=getWater(),goal=Number(data.settings.goal)||8;$('waterMetric').textContent=n+' / '+goal+' gelas';$('waterText').textContent=(n*250)+' ml';$('drops').innerHTML=Array.from({length:goal},(_,i)=>`<button class="drop ${i<n?'done':''}" onclick="setWater(${i+1})">💧</button>`).join('')}
+function setWater(n){data.water[today()]=Math.max(0,n);save();renderWater()}
+function addWater(n){setWater(Math.min(Number(data.settings.goal)||8,Math.max(0,getWater()+n)))}
+function saveWeight(){let v=parseFloat($('weightInput').value);if(!v||v<30||v>300)return alert('Masukkan berat yang valid.');if(!data.baseline)data.baseline=data.weights.length?data.weights[0].kg:v;data.weights.push({date:today(),kg:v});data.weights.sort((a,b)=>a.date.localeCompare(b.date));save();$('weightInput').value='';renderWeight();drawChart()}
+function renderWeight(){let last=data.weights[data.weights.length-1];$('weightMetric').textContent=last?last.kg+' kg':'Belum ditimbang';$('weightHistory').textContent=data.weights.map(x=>x.date+': '+x.kg+' kg').join(' · ');updateIdeal();if(!data.setupDone)$('setupCard').classList.remove('hidden')}
+function drawChart(){let c=$('chart'),ctx=c.getContext('2d'),w=c.width,h=c.height;ctx.clearRect(0,0,w,h);let a=data.weights;if(!a.length){ctx.fillStyle='#62748a';ctx.font='16px system-ui';ctx.fillText('Masukkan berat awal untuk mulai grafik',45,120);return;}let vals=a.map(x=>x.kg),min=Math.min(...vals,89)-1,max=Math.max(...vals,94)+1;ctx.strokeStyle='#dce4eb';ctx.lineWidth=1;for(let i=0;i<5;i++){let y=20+i*(h-50)/4;ctx.beginPath();ctx.moveTo(45,y);ctx.lineTo(w-15,y);ctx.stroke()}ctx.fillStyle='#62748a';ctx.font='13px system-ui';ctx.fillText(max.toFixed(1)+' kg',4,25);ctx.fillText(min.toFixed(1)+' kg',4,h-25);if(a.length===1){ctx.fillStyle='#176b87';ctx.beginPath();ctx.arc(w/2,h/2,6,0,Math.PI*2);ctx.fill();return}ctx.strokeStyle='#176b87';ctx.lineWidth=3;ctx.beginPath();a.forEach((p,i)=>{let x=50+i*(w-80)/(a.length-1),y=20+(max-p.kg)*(h-50)/(max-min);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();a.forEach((p,i)=>{let x=50+i*(w-80)/(a.length-1),y=20+(max-p.kg)*(h-50)/(max-min);ctx.fillStyle='#15966b';ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fill()})}
+function renderWeek(){let names=['Min','Sen','Sel','Rab','Kam','Jum','Sab'];let plans=['Istirahat aktif','Jalan + kekuatan','Jalan cepat','Jalan + kekuatan','Pemulihan aktif','Jalan + kekuatan','Jalan/sepeda'];$('week').innerHTML=names.map((n,i)=>`<div class="day ${i===new Date().getDay()?'active':''}">${n}<b>${['🌿','🏋️','🚶','🏋️','🌿','🏋️','🚴'][i]}</b><small>${plans[i]}</small></div>`).join('')}
+async function enableNotifications(){if(!('Notification'in window)){alert('Browser ini tidak mendukung notifikasi.');return}let p=await Notification.requestPermission();$('notifStatus').textContent=' Izin: '+p;if(p==='granted')new Notification('Pengingat aktif',{body:'Pengingat minum akan berjalan saat aplikasi terbuka.'})}
+let timer=null;function startReminder(){if(timer)clearInterval(timer);let mins=Number(data.settings.interval)||90;timer=setInterval(()=>{let now=new Date(),t=now.toTimeString().slice(0,5),s=data.settings.start,e=data.settings.end;if(t>=s&&t<=e&&getWater()<Number(data.settings.goal)){if('Notification'in window&&Notification.permission==='granted')new Notification('Waktunya minum air 💧',{body:'Minum sesuai rasa haus. Catat gelasmu di tracker.'});else $('notifStatus').textContent=' Pengingat aktif di halaman ini.'}},mins*60000)}
+function saveSettings(){data.settings={start:$('startTime').value,end:$('endTime').value,interval:Number($('interval').value),goal:Math.max(4,Math.min(16,Number($('waterGoal').value)||8))};save();renderWater();startReminder();alert('Pengaturan tersimpan.')}
+function exportData(){let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='fit-health-backup-'+today()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+function clearData(){if(confirm('Hapus semua catatan aplikasi di perangkat ini?')){localStorage.removeItem('fitHealthV1');location.reload()}}
+
+data.measurements=data.measurements||[];
+
+let kegelInterval=null,kegelStopped=false;
+function startKegel(){
+ stopKegel();kegelStopped=false;
+ let round=0,phase='Kontraksi',remaining=3;
+ $('kegelPhase').textContent=phase;$('kegelCount').textContent=remaining+' detik';
+ $('kegelStatus').textContent='Kencangkan lembut, tetap bernapas normal.';
+ kegelInterval=setInterval(()=>{
+  if(kegelStopped)return;
+  remaining--;
+  if(remaining<=0){
+   if(phase==='Kontraksi'){phase='Relaksasi';remaining=5;$('kegelStatus').textContent='Lepaskan sepenuhnya dan bernapas normal.';}
+   else{round++;if(round>=8){stopKegel();$('kegelPhase').textContent='Selesai';$('kegelCount').textContent='✓';$('kegelStatus').textContent='Sesi selesai. Pastikan tidak ada nyeri atau rasa tegang.';return;}phase='Kontraksi';remaining=3;$('kegelStatus').textContent='Kontraksikan otot dasar panggul dengan lembut.';}
+   $('kegelPhase').textContent=phase;$('kegelRound').textContent='Putaran '+(round+1)+' dari 8';
+  }
+  $('kegelCount').textContent=remaining+' detik';
+ },1000);
+}
+function stopKegel(){if(kegelInterval){clearInterval(kegelInterval);kegelInterval=null;}kegelStopped=true;}
+function saveKegelDone(v){
+ data.kegelDone=data.kegelDone||{};if(v)data.kegelDone[today()]=true;else delete data.kegelDone[today()];save();
+ $('kegelStreak').textContent=v?'Sesi Kegel tercatat hari ini.':'Belum ada sesi tercatat hari ini.';
+}
+
+function unlockApp(){
+ if($('appPass').value==='555888'){
+  $('lockScreen').style.display='none';sessionStorage.setItem('fitTrackerUnlocked','1');$('passError').textContent='';
+ }else{$('passError').textContent='Password salah. Coba lagi.';$('appPass').value='';}
+}
+function saveMeasurement(){
+ const date=$('measureDate').value||today(), length=parseFloat($('measureLength').value),
+ diameter=parseFloat($('measureDiameter').value), girth=parseFloat($('measureGirth').value), note=$('measureNote').value.trim();
+ if(!Number.isFinite(length)&&!Number.isFinite(diameter)&&!Number.isFinite(girth)){alert('Isi minimal satu ukuran.');return}
+ if((Number.isFinite(length)&&(length<1||length>30))||(Number.isFinite(diameter)&&(diameter<.5||diameter>10))||(Number.isFinite(girth)&&(girth<1||girth>30))){alert('Periksa kembali angka pengukuran.');return}
+ data.measurements.push({date,length:Number.isFinite(length)?length:null,diameter:Number.isFinite(diameter)?diameter:null,girth:Number.isFinite(girth)?girth:null,note});
+ data.measurements.sort((a,b)=>a.date.localeCompare(b.date));save();
+ ['measureLength','measureDiameter','measureGirth','measureNote'].forEach(id=>$(id).value='');renderMeasurements();
+}
+function renderMeasurements(){
+ const a=data.measurements||[];
+ if(!a.length){$('measurementHistory').textContent='Belum ada catatan.';drawMeasureChart('lengthChart','length');drawMeasureChart('diameterChart','diameter');return}
+ $('measurementHistory').innerHTML='<table class="measure-table"><thead><tr><th>Tanggal</th><th>Panjang</th><th>Diameter</th><th>Lingkar</th></tr></thead><tbody>'+a.slice().reverse().map(x=>`<tr><td>${x.date}</td><td>${x.length??'—'} cm</td><td>${x.diameter??'—'} cm</td><td>${x.girth??'—'} cm</td></tr>`).join('')+'</tbody></table>';
+ drawMeasureChart('lengthChart','length');drawMeasureChart('diameterChart','diameter');
+}
+function drawMeasureChart(id,key){
+ const c=$(id),ctx=c.getContext('2d'),w=c.width,h=c.height;ctx.clearRect(0,0,w,h);
+ const a=(data.measurements||[]).filter(x=>Number.isFinite(x[key]));
+ if(!a.length){ctx.fillStyle='#62748a';ctx.font='16px system-ui';ctx.fillText('Belum ada data',45,115);return}
+ const vals=a.map(x=>x[key]),mn=Math.min(...vals)-.5,mx=Math.max(...vals)+.5;
+ ctx.strokeStyle='#dce4eb';for(let i=0;i<4;i++){let y=20+i*(h-45)/3;ctx.beginPath();ctx.moveTo(45,y);ctx.lineTo(w-15,y);ctx.stroke()}
+ if(a.length===1){ctx.fillStyle='#176b87';ctx.font='18px system-ui';ctx.fillText(vals[0]+' cm · '+a[0].date,55,110);return}
+ ctx.strokeStyle='#176b87';ctx.lineWidth=3;ctx.beginPath();a.forEach((p,i)=>{let x=50+i*(w-80)/(a.length-1),y=20+(mx-p[key])*(h-45)/(mx-mn);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();
+ a.forEach((p,i)=>{let x=50+i*(w-80)/(a.length-1),y=20+(mx-p[key])*(h-45)/(mx-mn);ctx.fillStyle='#15966b';ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fill()});
+}
+
+
+let calendarCursor=new Date();calendarCursor.setDate(1);
+let selectedCalendarDate=today();
+const planByDay=[
+ ['Istirahat aktif','Jalan santai 10–20 menit atau peregangan'],
+ ['Kettlebell A','Latihan kekuatan ringan dan teknik'],
+ ['Jalan cepat','20–30 menit dengan pace nyaman'],
+ ['Kettlebell B','Latihan kekuatan ringan dan teknik'],
+ ['Pemulihan','Jalan santai dan mobilitas'],
+ ['Kettlebell ringan','Sesi ringan, jangan sampai kelelahan'],
+ ['Jalan lebih lama','25–35 menit; jogging interval hanya jika siap']
+];
+function changeMonth(delta){calendarCursor.setMonth(calendarCursor.getMonth()+delta);renderCalendar()}
+function renderCalendar(){
+ const y=calendarCursor.getFullYear(),m=calendarCursor.getMonth(),offset=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
+ $('calendarTitle').textContent=calendarCursor.toLocaleDateString('id-ID',{month:'long',year:'numeric'});
+ let out=['Min','Sen','Sel','Rab','Kam','Jum','Sab'].map(n=>`<div class="cal-dow">${n}</div>`).join('');
+ const prevDays=new Date(y,m,0).getDate();
+ for(let i=0;i<42;i++){
+  let day=i-offset+1,dt,label,cls='cal-day';
+  if(day<1){dt=new Date(y,m-1,prevDays+day);label=prevDays+day;cls+=' out'}
+  else if(day>days){dt=new Date(y,m+1,day-days);label=day-days;cls+=' out'}
+  else{dt=new Date(y,m,day);label=day}
+  const key=[dt.getFullYear(),String(dt.getMonth()+1).padStart(2,'0'),String(dt.getDate()).padStart(2,'0')].join('-');
+  const has=(data.tasks[key]&&data.tasks[key].length)||(data.water[key]>0)||(data.kegelDone&&data.kegelDone[key])||(data.workouts&&data.workouts.some(w=>w.date===key));
+  if(key===today())cls+=' today';if(key===selectedCalendarDate)cls+=' selected';
+  out+=`<button class="${cls}" onclick="selectCalendarDate('${key}')"><span class="num">${label}</span><span class="dot">${has?'●':''}</span></button>`;
+ }
+ $('calendarGrid').innerHTML=out;
+ const d=new Date(selectedCalendarDate+'T12:00:00'),p=planByDay[d.getDay()];
+ $('calendarDetail').innerHTML=`<b>${d.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</b><p style="margin:6px 0"><span class="pill">${p[0]}</span></p><div class="muted">${p[1]}</div><p class="muted">${(data.tasks[selectedCalendarDate]||[]).length} checklist selesai · ${data.water[selectedCalendarDate]||0} gelas air · ${data.kegelDone&&data.kegelDone[selectedCalendarDate]?'Kegel selesai':'Kegel belum dicatat'} · ${(data.workouts||[]).filter(w=>w.date===selectedCalendarDate).length} sesi olahraga</p>`;
+ $('calendarPlan').innerHTML=planByDay.map((p,i)=>`<div class="task"><b style="min-width:34px">${['Min','Sen','Sel','Rab','Kam','Jum','Sab'][i]}</b><label><b>${p[0]}</b><small>${p[1]}</small></label></div>`).join('');
+}
+function selectCalendarDate(key){selectedCalendarDate=key;renderCalendar()}
+function cueTone(freq){try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;const c=new AC(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=freq;g.gain.value=.05;o.start();o.stop(c.currentTime+.12);o.onended=()=>c.close()}catch(e){}}
+function startKegel(){
+ stopKegel();kegelStopped=false;let round=1,phase='Kontraksi',remaining=3;
+ function paint(){ $('kegelPhase').textContent=phase==='Kontraksi'?'TAHAN':'LEPAS';$('kegelCount').textContent=remaining;$('kegelRound').textContent=`Repetisi ${round} dari 8 · ${phase==='Kontraksi'?'kencangkan lembut':'relaksasi penuh'}`;let elapsed=(round-1)*8+(phase==='Kontraksi'?3-remaining:8-remaining);$('kegelProgress').style.width=Math.min(100,elapsed/64*100)+'%';}
+ paint();$('kegelStatus').textContent='Ikuti aba-aba. Bernapas normal, jangan mengejan atau mengencangkan bokong.';cueTone(660);
+ kegelInterval=setInterval(()=>{if(kegelStopped)return;remaining--;if(remaining<=0){
+  if(phase==='Kontraksi'){phase='Relaksasi';remaining=5;cueTone(440)}
+  else if(round>=8){stopKegel();$('kegelPhase').textContent='SELESAI ✓';$('kegelCount').textContent='✓';$('kegelRound').textContent='8 dari 8 repetisi selesai';$('kegelProgress').style.width='100%';$('kegelStatus').textContent='Sesi selesai. Beri otot waktu rileks. Centang catatan sesi jika tidak ada nyeri.';return}
+  else{round++;phase='Kontraksi';remaining=3;cueTone(660)}
+ }paint()},1000);
+}
+function stopKegel(){if(kegelInterval){clearInterval(kegelInterval);kegelInterval=null}kegelStopped=true;if($('kegelPhase')){$('kegelPhase').textContent='DIJEDA';$('kegelStatus').textContent='Sesi dihentikan. Kamu bisa mulai ulang kapan saja.'}}
+
+
+function saveWorkout(){
+ const date=$('workDate').value||today(),duration=Number($('workDuration').value)||0;
+ if(duration<1||duration>600){alert('Isi durasi latihan antara 1 sampai 600 menit.');return}
+ const entry={id:Date.now(),date,type:$('workType').value,duration,distance:Number($('workDistance').value)||0,load:Number($('workLoad').value)||0,sets:Number($('workSets').value)||0,reps:Number($('workReps').value)||0,notes:$('workNotes').value.trim()};
+ data.workouts=data.workouts||[];data.workouts.push(entry);save();
+ ['workDuration','workDistance','workLoad','workSets','workReps','workNotes'].forEach(id=>$(id).value='');
+ renderWorkoutHistory();renderCalendar();renderWeeklyStats();alert('Sesi latihan tersimpan.');
+}
+function renderWorkoutHistory(){
+ const list=(data.workouts||[]).slice().sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);
+ $('workoutTotal').textContent=list.length+' sesi';
+ $('workoutHistory').innerHTML=list.length?list.slice(0,30).map(w=>`<div class="task"><div style="flex:1"><b>${w.type}</b><small>${w.date} · ${w.duration} menit${w.distance?' · '+w.distance+' km':''}${w.load?' · '+w.load+' kg':''}${w.sets?' · '+w.sets+' set × '+w.reps+' repetisi':''}</small>${w.notes?`<small>${escapeHTML(w.notes)}</small>`:''}</div><button class="secondary small" onclick="deleteWorkout(${w.id})">Hapus</button></div>`).join(''):'Belum ada sesi tercatat.';
+}
+function deleteWorkout(id){if(!confirm('Hapus catatan latihan ini?'))return;data.workouts=(data.workouts||[]).filter(w=>w.id!==id);save();renderWorkoutHistory();renderCalendar();renderWeeklyStats()}
+function escapeHTML(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function renderWeeklyStats(){
+ const cutoff=new Date();cutoff.setDate(cutoff.getDate()-6);cutoff.setHours(0,0,0,0);
+ const list=(data.workouts||[]).filter(w=>new Date(w.date+'T12:00:00')>=cutoff);
+ $('weeklySessions').textContent=list.length;
+ $('weeklyMinutes').textContent=list.reduce((a,w)=>a+(Number(w.duration)||0),0);
+ $('weeklyKm').textContent=list.reduce((a,w)=>a+(Number(w.distance)||0),0).toFixed(1);
+}
+function importData(ev){
+ const file=ev.target.files&&ev.target.files[0];if(!file)return;
+ const reader=new FileReader();
+ reader.onload=()=>{
+  try{
+   const incoming=JSON.parse(reader.result);
+   if(!incoming||typeof incoming!=='object'||!Array.isArray(incoming.weights)||!incoming.settings)throw new Error('Format backup tidak dikenali.');
+   if(!confirm('Impor akan mengganti data aplikasi saat ini. Lanjutkan?'))return;
+   data=incoming;data.weights=data.weights||[];data.water=data.water||{};data.tasks=data.tasks||{};data.workouts=data.workouts||[];data.measurements=data.measurements||[];data.settings=data.settings||{start:'09:00',end:'20:30',interval:90,goal:8};
+   save();alert('Backup berhasil dipulihkan. Aplikasi akan dimuat ulang.');location.reload();
+  }catch(e){alert('Backup gagal dibaca: '+e.message)}
+ };
+ reader.readAsText(file);ev.target.value='';
+}
+
+function init(){renderTasks();renderWater();renderWeek();renderWeight();renderCalendar();renderWorkoutHistory();renderWeeklyStats();$('workDate').value=today();updateIdeal();$('startTime').value=data.settings.start;$('endTime').value=data.settings.end;$('interval').value=data.settings.interval;$('waterGoal').value=data.settings.goal;startReminder()}
+if(sessionStorage.getItem('fitTrackerUnlocked')==='1')$('lockScreen').style.display='none';$('measureDate').value=today();init();
+</script><script>
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(err => console.warn('Service worker:', err)));
+}
+</script>
+</body></html>
