@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fit-health-v8-pwa-1';
+const CACHE_NAME = 'fit-health-v9-pwa-1';
 const CORE_ASSETS = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/icon-180.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(CORE_ASSETS)).then(() => self.skipWaiting()));

@@ -37,3 +37,6 @@ DATA & PRIVASI
 - Cache offline menyimpan file aplikasi, bukan menyinkronkan data.
 - Jika data browser dihapus, data aplikasi lokal dapat ikut hilang. Ekspor backup secara berkala.
 - Password aplikasi tetap merupakan kunci sederhana, bukan enkripsi.
+
+
+V9: Menambahkan GPS Walking Tracker. Membutuhkan HTTPS, izin lokasi, dan koneksi internet untuk peta jalan. Pada iPhone, rekaman GPS paling andal saat halaman tetap terbuka dan layar tidak dikunci.

@@ -67,6 +67,8 @@ nav a{flex:0 0 auto;min-width:56px;padding:5px 7px;border-radius:12px;font-weigh
 
 
 </style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 </head>
 <body>
 <div id="lockScreen"><div class="lockbox">
@@ -122,6 +124,19 @@ nav a{flex:0 0 auto;min-width:56px;padding:5px 7px;border-radius:12px;font-weigh
   <p class="muted">Ini jadwal awal yang fleksibel. Hentikan latihan jika muncul nyeri tajam, pusing, atau sesak yang tidak biasa.</p>
  </div>
 
+ <div class="section">GPS jalan kaki</div>
+ <div class="card">
+  <div class="row"><b>Rekam perjalanan</b><span class="pill" id="gpsStatus">Siap</span></div>
+  <p class="muted">Aktifkan lokasi saat mulai berjalan. Jaga aplikasi tetap terbuka agar rekaman lebih andal. GPS dapat terhenti saat layar terkunci atau browser ditutup, terutama di iPhone.</p>
+  <div id="gpsMap" style="height:240px;border-radius:14px;background:#edf2f6;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#62748a;text-align:center;padding:12px">Peta rute akan muncul setelah GPS mendapatkan lokasi.<br>Perlu koneksi internet untuk peta jalan.</div>
+  <div class="grid3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0;text-align:center">
+   <div><b id="gpsDistance">0.00 km</b><small class="muted" style="display:block">Jarak</small></div>
+   <div><b id="gpsDuration">00:00</b><small class="muted" style="display:block">Durasi</small></div>
+   <div><b id="gpsPace">--</b><small class="muted" style="display:block">Tempo min/km</small></div>
+  </div>
+  <div class="formrow"><button id="gpsStartBtn" onclick="startGpsWalk()">▶ Mulai jalan</button><button class="secondary" id="gpsPauseBtn" onclick="pauseGpsWalk()" disabled>Ⅱ Jeda</button><button class="secondary" id="gpsFinishBtn" onclick="finishGpsWalk()" disabled>■ Selesai</button></div>
+  <p class="muted" id="gpsHint" style="margin-bottom:0">GPS hanya aktif setelah kamu menekan Mulai dan memberi izin lokasi.</p>
+ </div>
  <div class="section">Catatan latihan</div>
  <div class="card">
   <b>Tambah sesi olahraga</b>
@@ -382,8 +397,9 @@ function saveWorkout(){
 function renderWorkoutHistory(){
  const list=(data.workouts||[]).slice().sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);
  $('workoutTotal').textContent=list.length+' sesi';
- $('workoutHistory').innerHTML=list.length?list.slice(0,30).map(w=>`<div class="task"><div style="flex:1"><b>${w.type}</b><small>${w.date} · ${w.duration} menit${w.distance?' · '+w.distance+' km':''}${w.load?' · '+w.load+' kg':''}${w.sets?' · '+w.sets+' set × '+w.reps+' repetisi':''}</small>${w.notes?`<small>${escapeHTML(w.notes)}</small>`:''}</div><button class="secondary small" onclick="deleteWorkout(${w.id})">Hapus</button></div>`).join(''):'Belum ada sesi tercatat.';
+ $('workoutHistory').innerHTML=list.length?list.slice(0,30).map(w=>`<div class="task"><div style="flex:1"><b>${w.type}</b><small>${w.date} · ${w.duration} menit${w.distance?' · '+w.distance+' km':''}${w.load?' · '+w.load+' kg':''}${w.sets?' · '+w.sets+' set × '+w.reps+' repetisi':''}</small>${w.notes?`<small>${escapeHTML(w.notes)}</small>`:''}${w.route&&w.route.length?`<button class="secondary small" onclick="viewWorkoutRoute(${w.id})">Lihat rute</button>`:''}</div><button class="secondary small" onclick="deleteWorkout(${w.id})">Hapus</button></div>`).join(''):'Belum ada sesi tercatat.';
 }
+function viewWorkoutRoute(id){const w=(data.workouts||[]).find(x=>x.id===id);if(!w||!w.route||!w.route.length)return;gpsPoints=w.route;gpsDistanceMeters=(Number(w.distance)||0)*1000;gpsElapsed=(Number(w.duration)||0)*60;gpsStartedAt=0;gpsPaused=true;gpsMapInit();gpsRender();gpsUpdateStats();$('gpsStatus').textContent='Rute tersimpan';$('gpsHint').textContent='Menampilkan rute '+w.date+'.';$('gpsStartBtn').disabled=false;$('gpsStartBtn').textContent='▶ Mulai jalan';$('gpsPauseBtn').disabled=true;$('gpsFinishBtn').disabled=true;document.getElementById('gpsMap').scrollIntoView({behavior:'smooth',block:'center'});}
 function deleteWorkout(id){if(!confirm('Hapus catatan latihan ini?'))return;data.workouts=(data.workouts||[]).filter(w=>w.id!==id);save();renderWorkoutHistory();renderCalendar();renderWeeklyStats()}
 function escapeHTML(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function renderWeeklyStats(){
@@ -408,7 +424,20 @@ function importData(ev){
  reader.readAsText(file);ev.target.value='';
 }
 
-function init(){renderTasks();renderWater();renderWeek();renderWeight();renderCalendar();renderWorkoutHistory();renderWeeklyStats();$('workDate').value=today();updateIdeal();$('startTime').value=data.settings.start;$('endTime').value=data.settings.end;$('interval').value=data.settings.interval;$('waterGoal').value=data.settings.goal;startReminder()}
+let gpsWatchId=null,gpsTimer=null,gpsMap=null,gpsLine=null,gpsPoints=[],gpsStartedAt=0,gpsElapsed=0,gpsPaused=false,gpsLastFix=null,gpsDistanceMeters=0;
+function gpsFmtTime(sec){sec=Math.max(0,Math.floor(sec));return String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0')}
+function gpsUpdateStats(){const sec=gpsElapsed+(gpsStartedAt&&!gpsPaused?Math.floor((Date.now()-gpsStartedAt)/1000):0);$('gpsDistance').textContent=(gpsDistanceMeters/1000).toFixed(2)+' km';$('gpsDuration').textContent=gpsFmtTime(sec);$('gpsPace').textContent=gpsDistanceMeters>20?(sec/(gpsDistanceMeters/1000)/60).toFixed(1):'--';}
+function gpsMapInit(){if(gpsMap||!window.L)return;gpsMap=L.map('gpsMap').setView([-7.98,112.63],15);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(gpsMap);gpsLine=L.polyline([],{color:'#15966b',weight:5}).addTo(gpsMap);}
+function gpsRender(){if(!gpsPoints.length)return;gpsMapInit();if(gpsMap){gpsLine.setLatLngs(gpsPoints.map(p=>[p.lat,p.lng]));gpsMap.fitBounds(gpsLine.getBounds().pad(.2));}}
+function gpsSaveActive(){try{localStorage.setItem('fitGpsActive',JSON.stringify({points:gpsPoints,distance:gpsDistanceMeters,elapsed:gpsElapsed,startedAt:gpsStartedAt,paused:gpsPaused}))}catch(e){}}
+function startGpsWalk(){if(!('geolocation'in navigator)){alert('Browser ini tidak mendukung GPS.');return}if(!window.isSecureContext){alert('GPS memerlukan HTTPS. Buka aplikasi melalui alamat GitHub Pages HTTPS.');return}if(!gpsPoints.length){gpsPoints=[];gpsDistanceMeters=0;gpsElapsed=0;gpsStartedAt=Date.now();gpsPaused=false;gpsLastFix=null;gpsMapInit();if(gpsLine)gpsLine.setLatLngs([])}else if(gpsPaused){gpsStartedAt=Date.now();gpsPaused=false} $('gpsStatus').textContent='Mencari GPS…';$('gpsHint').textContent='Izinkan akses lokasi. Usahakan berada di area terbuka.';$('gpsStartBtn').disabled=true;$('gpsPauseBtn').disabled=false;$('gpsFinishBtn').disabled=false;
+ gpsWatchId=navigator.geolocation.watchPosition(pos=>{const c=pos.coords,pt={lat:c.latitude,lng:c.longitude,accuracy:c.accuracy,time:pos.timestamp};if(c.accuracy>60){$('gpsHint').textContent='Sinyal GPS kurang akurat ('+Math.round(c.accuracy)+' m). Tunggu di area lebih terbuka.';return}if(gpsLastFix){const d=gpsHaversine(gpsLastFix,pt);if(d>=3&&d<100){gpsDistanceMeters+=d;gpsPoints.push(pt);gpsLastFix=pt;gpsRender();gpsSaveActive();$('gpsStatus').textContent='Merekam'}}else{gpsPoints.push(pt);gpsLastFix=pt;gpsMapInit();if(gpsMap)gpsMap.setView([pt.lat,pt.lng],17);gpsRender();$('gpsStatus').textContent='Merekam'}gpsUpdateStats();},err=>{$('gpsStatus').textContent='GPS bermasalah';$('gpsHint').textContent=err.code===1?'Izin lokasi ditolak. Aktifkan izin lokasi untuk browser di Pengaturan iPhone.':err.code===2?'Lokasi belum tersedia. Coba area terbuka.':'GPS terlalu lama merespons. Coba lagi.';},{enableHighAccuracy:true,maximumAge:2000,timeout:20000});if(gpsTimer)clearInterval(gpsTimer);gpsTimer=setInterval(gpsUpdateStats,1000);}
+function gpsHaversine(a,b){const R=6371000,rad=x=>x*Math.PI/180,dLat=rad(b.lat-a.lat),dLon=rad(b.lng-a.lng),x=Math.sin(dLat/2)**2+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dLon/2)**2;return 2*R*Math.atan2(Math.sqrt(x),Math.sqrt(1-x))}
+function pauseGpsWalk(){if(gpsWatchId!==null)navigator.geolocation.clearWatch(gpsWatchId);gpsWatchId=null;if(gpsTimer)clearInterval(gpsTimer);gpsTimer=null;gpsElapsed+=Math.floor((Date.now()-gpsStartedAt)/1000);gpsStartedAt=0;gpsPaused=true;$('gpsStatus').textContent='Dijeda';$('gpsStartBtn').disabled=false;$('gpsStartBtn').textContent='▶ Lanjutkan';$('gpsPauseBtn').disabled=true;gpsSaveActive();gpsUpdateStats()}
+function finishGpsWalk(){if(!gpsPoints.length){alert('Belum ada titik GPS yang terekam.');return}if(gpsWatchId!==null)navigator.geolocation.clearWatch(gpsWatchId);gpsWatchId=null;if(gpsTimer)clearInterval(gpsTimer);gpsTimer=null;if(!gpsPaused)gpsElapsed+=Math.floor((Date.now()-gpsStartedAt)/1000);gpsStartedAt=0;const mins=Math.max(1,Math.round(gpsElapsed/60)),km=Number((gpsDistanceMeters/1000).toFixed(2));const entry={id:Date.now(),date:today(),type:'Jalan kaki (GPS)',duration:mins,distance:km,load:0,sets:0,reps:0,notes:'Direkam GPS · '+gpsPoints.length+' titik · rute tersimpan di perangkat',route:gpsPoints};data.workouts=data.workouts||[];data.workouts.push(entry);save();localStorage.removeItem('fitGpsActive');gpsPaused=false;gpsStartedAt=0;$('gpsStatus').textContent='Selesai';$('gpsHint').textContent='Sesi tersimpan. Jarak GPS dapat sedikit berbeda dari jarak sebenarnya.';$('gpsStartBtn').disabled=false;$('gpsStartBtn').textContent='▶ Mulai jalan';$('gpsPauseBtn').disabled=true;$('gpsFinishBtn').disabled=true;renderWorkoutHistory();renderCalendar();renderWeeklyStats();gpsUpdateStats();alert('Sesi tersimpan: '+km.toFixed(2)+' km · '+mins+' menit.');}
+function restoreGpsMap(){try{const a=JSON.parse(localStorage.getItem('fitGpsActive')||'null');if(a&&Array.isArray(a.points)&&a.points.length){gpsPoints=a.points;gpsDistanceMeters=a.distance||0;gpsElapsed=a.elapsed||0;gpsPaused=true;gpsMapInit();gpsRender();gpsUpdateStats();$('gpsStatus').textContent='Sesi tersimpan sementara';$('gpsHint').textContent='Ada sesi GPS yang belum diselesaikan. Tekan Lanjutkan atau Selesai setelah melanjutkan rekaman.';$('gpsStartBtn').textContent='▶ Lanjutkan';$('gpsFinishBtn').disabled=false}}catch(e){}}
+
+function init(){renderTasks();renderWater();renderWeek();renderWeight();renderCalendar();renderWorkoutHistory();renderWeeklyStats();$('workDate').value=today();restoreGpsMap();updateIdeal();$('startTime').value=data.settings.start;$('endTime').value=data.settings.end;$('interval').value=data.settings.interval;$('waterGoal').value=data.settings.goal;startReminder()}
 if(sessionStorage.getItem('fitTrackerUnlocked')==='1')$('lockScreen').style.display='none';$('measureDate').value=today();init();
 </script><script>
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
